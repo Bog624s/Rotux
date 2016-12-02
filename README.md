@@ -11,7 +11,9 @@
 * Run this commands in terminal:
 
 `sudo add-apt-repository ppa:upubuntu-com/web`
+
 `sudo apt-get update`
+
 `sudo apt-get install xampp`
 
 ## 3. Build the server
