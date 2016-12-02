@@ -3,4 +3,4 @@
 
 ## Are you stuck?
 
-### Check out the [wiki](wiki).
+### Check out the [wiki](//github.com/mihail-rotmg/Rotux/wiki).
