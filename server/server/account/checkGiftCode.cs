@@ -40,7 +40,7 @@ namespace server.account
 				if (status.IsNullOrWhiteSpace() || status == "Invalid code.")
 				{
 					res = Encoding.UTF8.GetBytes(
- $@"<html>
+ @"<html>
 	<head>
 		<title>Check Giftcode</title>
 	</head>
@@ -54,7 +54,7 @@ namespace server.account
 				else
 				{
 					res = Encoding.UTF8.GetBytes(
- $@"<html>
+ @"<html>
 	<head>
 		<title>Check Giftcode</title>
 	</head>
