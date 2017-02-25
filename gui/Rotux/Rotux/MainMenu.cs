@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Net;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -46,22 +48,46 @@ namespace Rotux
 
         private void startbtn_Click(object sender, EventArgs e)
         {
+            startbtn.Enabled = false;
+            stopbtn.Enabled = true;
             new Thread(StartThread).Start();
         }
 
         private void StartThread()
         {
+            BeginInvoke(new Action(() => global.Value = 0));
             mysqlstartbtn_Click(this, null);
-            Thread.Sleep(5000);
+            BeginInvoke(new Action(() => global.Value = 35));
+            Thread.Sleep(1000);
+            BeginInvoke(new Action(() => global.Value = 45));
+            Thread.Sleep(1000);
+            BeginInvoke(new Action(() => global.Value = 55));
+            Thread.Sleep(1000);
+            BeginInvoke(new Action(() => global.Value = 65));
+            Thread.Sleep(1000);
             wserverstartbtn_Click(this, null);
+            BeginInvoke(new Action(() => global.Value = 75));
             serverstartbtn_Click(this, null);
+            BeginInvoke(new Action(() => global.Value = 85));
+            Thread.Sleep(1000);
+            BeginInvoke(new Action(() => global.Value = 100));
         }
 
         private void stopbtn_Click(object sender, EventArgs e)
         {
+            global.Value = 0;
+            startbtn.Enabled = true;
+            stopbtn.Enabled = false;
             serverstopbtn_Click(sender, e);
+            global.Value = 33;
             wserverstopbtn_Click(sender, e);
+            global.Value = 66;
             mysqlstopbtn_Click(sender, e);
+            global.Value = 100;
+            KillProcess("wServer.exe");
+            KillProcess("server.exe");
+            KillProcess("mysqld.exe");
+            KillProcess("cmd.exe");
         }
 
         private void settingsbtn_Click(object sender, EventArgs e)
@@ -78,6 +104,48 @@ namespace Rotux
         private void MainMenu_FormClosing(object sender, FormClosingEventArgs e)
         {
             stopbtn_Click(sender,e);
+        }
+
+        private void playgamebtn_Click(object sender, EventArgs e)
+        {
+            new Thread(clientplay).Start();
+        }
+
+        void clientplay()
+        {
+            if (!File.Exists(s.data["Flash Player"]))
+            {
+                using (var client = new WebClient())
+                {
+                    client.DownloadProgressChanged += (s, e) =>
+                    {
+                        BeginInvoke(new Action(() => global.Value = e.ProgressPercentage / 2));
+                    };
+                    client.DownloadFileCompleted += (s, e) =>
+                    {
+                        BeginInvoke(new Action(() => global.Value = 50));
+                    };
+                    client.DownloadFileAsync(new Uri(s.data["Flash Download"]), s.data["Flash Player"]);
+                }
+            }
+            Process.Start(s.data["Flash Player"], s.data["Client"]);
+            BeginInvoke(new Action(() => global.Value = 100));
+        }
+
+        private void MainMenu_Load(object sender, EventArgs e)
+        {
+            KillProcess("cmd.exe");
+        }
+
+        void KillProcess(string process)
+        {
+            global.Value = 0; int i = 0;
+            var y = Process.GetProcessesByName(process);
+            foreach (Process x in y)
+            {
+                global.Value = i / y.Length;
+            }
+            global.Value = 100;
         }
 
         private void wserverstartbtn_Click(object sender, EventArgs e)

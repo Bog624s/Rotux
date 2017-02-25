@@ -37,7 +37,6 @@
             this.mysqlstopbtn = new System.Windows.Forms.Button();
             this.startbtn = new System.Windows.Forms.Button();
             this.stopbtn = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.ConsoleTabs = new System.Windows.Forms.TabControl();
             this.wServerConsole = new System.Windows.Forms.TabPage();
             this.wServerOutput = new System.Windows.Forms.TextBox();
@@ -48,19 +47,26 @@
             this.Header = new System.Windows.Forms.PictureBox();
             this.settingsbtn = new System.Windows.Forms.Button();
             this.loadsettingsbtn = new System.Windows.Forms.Button();
-            this.panel1.SuspendLayout();
+            this.playgamebtn = new System.Windows.Forms.Button();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.SimpleMenu = new System.Windows.Forms.TabPage();
+            this.AdvancedMenu = new System.Windows.Forms.TabPage();
+            this.global = new System.Windows.Forms.ProgressBar();
             this.ConsoleTabs.SuspendLayout();
             this.wServerConsole.SuspendLayout();
             this.serverConsole.SuspendLayout();
             this.MySQLConsole.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Header)).BeginInit();
+            this.tabControl1.SuspendLayout();
+            this.SimpleMenu.SuspendLayout();
+            this.AdvancedMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // wserverstartbtn
             // 
-            this.wserverstartbtn.Location = new System.Drawing.Point(3, 139);
+            this.wserverstartbtn.Location = new System.Drawing.Point(6, 6);
             this.wserverstartbtn.Name = "wserverstartbtn";
-            this.wserverstartbtn.Size = new System.Drawing.Size(145, 23);
+            this.wserverstartbtn.Size = new System.Drawing.Size(124, 23);
             this.wserverstartbtn.TabIndex = 2;
             this.wserverstartbtn.Text = "wServer Start";
             this.wserverstartbtn.UseVisualStyleBackColor = true;
@@ -68,9 +74,9 @@
             // 
             // serverstartbtn
             // 
-            this.serverstartbtn.Location = new System.Drawing.Point(3, 168);
+            this.serverstartbtn.Location = new System.Drawing.Point(6, 35);
             this.serverstartbtn.Name = "serverstartbtn";
-            this.serverstartbtn.Size = new System.Drawing.Size(145, 23);
+            this.serverstartbtn.Size = new System.Drawing.Size(124, 23);
             this.serverstartbtn.TabIndex = 3;
             this.serverstartbtn.Text = "Server Start";
             this.serverstartbtn.UseVisualStyleBackColor = true;
@@ -78,9 +84,9 @@
             // 
             // mysqlstartbtn
             // 
-            this.mysqlstartbtn.Location = new System.Drawing.Point(3, 197);
+            this.mysqlstartbtn.Location = new System.Drawing.Point(6, 64);
             this.mysqlstartbtn.Name = "mysqlstartbtn";
-            this.mysqlstartbtn.Size = new System.Drawing.Size(145, 23);
+            this.mysqlstartbtn.Size = new System.Drawing.Size(124, 23);
             this.mysqlstartbtn.TabIndex = 4;
             this.mysqlstartbtn.Text = "MySQL Start";
             this.mysqlstartbtn.UseVisualStyleBackColor = true;
@@ -88,9 +94,9 @@
             // 
             // wserverstopbtn
             // 
-            this.wserverstopbtn.Location = new System.Drawing.Point(154, 139);
+            this.wserverstopbtn.Location = new System.Drawing.Point(164, 6);
             this.wserverstopbtn.Name = "wserverstopbtn";
-            this.wserverstopbtn.Size = new System.Drawing.Size(145, 23);
+            this.wserverstopbtn.Size = new System.Drawing.Size(124, 23);
             this.wserverstopbtn.TabIndex = 5;
             this.wserverstopbtn.Text = "wServer Stop";
             this.wserverstopbtn.UseVisualStyleBackColor = true;
@@ -98,9 +104,9 @@
             // 
             // serverstopbtn
             // 
-            this.serverstopbtn.Location = new System.Drawing.Point(154, 168);
+            this.serverstopbtn.Location = new System.Drawing.Point(164, 35);
             this.serverstopbtn.Name = "serverstopbtn";
-            this.serverstopbtn.Size = new System.Drawing.Size(145, 23);
+            this.serverstopbtn.Size = new System.Drawing.Size(124, 23);
             this.serverstopbtn.TabIndex = 6;
             this.serverstopbtn.Text = "Server Stop";
             this.serverstopbtn.UseVisualStyleBackColor = true;
@@ -108,9 +114,9 @@
             // 
             // mysqlstopbtn
             // 
-            this.mysqlstopbtn.Location = new System.Drawing.Point(154, 197);
+            this.mysqlstopbtn.Location = new System.Drawing.Point(164, 64);
             this.mysqlstopbtn.Name = "mysqlstopbtn";
-            this.mysqlstopbtn.Size = new System.Drawing.Size(145, 23);
+            this.mysqlstopbtn.Size = new System.Drawing.Size(124, 23);
             this.mysqlstopbtn.TabIndex = 7;
             this.mysqlstopbtn.Text = "MySQL Stop";
             this.mysqlstopbtn.UseVisualStyleBackColor = true;
@@ -118,9 +124,9 @@
             // 
             // startbtn
             // 
-            this.startbtn.Location = new System.Drawing.Point(3, 3);
+            this.startbtn.Location = new System.Drawing.Point(6, 6);
             this.startbtn.Name = "startbtn";
-            this.startbtn.Size = new System.Drawing.Size(296, 62);
+            this.startbtn.Size = new System.Drawing.Size(282, 62);
             this.startbtn.TabIndex = 0;
             this.startbtn.Text = "Start Private Server";
             this.startbtn.UseVisualStyleBackColor = true;
@@ -128,28 +134,14 @@
             // 
             // stopbtn
             // 
-            this.stopbtn.Location = new System.Drawing.Point(3, 71);
+            this.stopbtn.Enabled = false;
+            this.stopbtn.Location = new System.Drawing.Point(6, 74);
             this.stopbtn.Name = "stopbtn";
-            this.stopbtn.Size = new System.Drawing.Size(296, 62);
+            this.stopbtn.Size = new System.Drawing.Size(282, 62);
             this.stopbtn.TabIndex = 1;
             this.stopbtn.Text = "Stop Private Server";
             this.stopbtn.UseVisualStyleBackColor = true;
             this.stopbtn.Click += new System.EventHandler(this.stopbtn_Click);
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.startbtn);
-            this.panel1.Controls.Add(this.stopbtn);
-            this.panel1.Controls.Add(this.wserverstartbtn);
-            this.panel1.Controls.Add(this.serverstartbtn);
-            this.panel1.Controls.Add(this.mysqlstopbtn);
-            this.panel1.Controls.Add(this.mysqlstartbtn);
-            this.panel1.Controls.Add(this.serverstopbtn);
-            this.panel1.Controls.Add(this.wserverstopbtn);
-            this.panel1.Location = new System.Drawing.Point(12, 160);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(305, 225);
-            this.panel1.TabIndex = 8;
             // 
             // ConsoleTabs
             // 
@@ -236,9 +228,9 @@
             // 
             // settingsbtn
             // 
-            this.settingsbtn.Location = new System.Drawing.Point(503, 17);
+            this.settingsbtn.Location = new System.Drawing.Point(6, 93);
             this.settingsbtn.Name = "settingsbtn";
-            this.settingsbtn.Size = new System.Drawing.Size(99, 23);
+            this.settingsbtn.Size = new System.Drawing.Size(124, 23);
             this.settingsbtn.TabIndex = 11;
             this.settingsbtn.Text = "Edit Settings";
             this.settingsbtn.UseVisualStyleBackColor = true;
@@ -246,24 +238,81 @@
             // 
             // loadsettingsbtn
             // 
-            this.loadsettingsbtn.Location = new System.Drawing.Point(503, 46);
+            this.loadsettingsbtn.Location = new System.Drawing.Point(164, 93);
             this.loadsettingsbtn.Name = "loadsettingsbtn";
-            this.loadsettingsbtn.Size = new System.Drawing.Size(99, 23);
+            this.loadsettingsbtn.Size = new System.Drawing.Size(124, 23);
             this.loadsettingsbtn.TabIndex = 12;
             this.loadsettingsbtn.Text = "Load Settings";
             this.loadsettingsbtn.UseVisualStyleBackColor = true;
             this.loadsettingsbtn.Click += new System.EventHandler(this.loadsettingsbtn_Click);
             // 
+            // playgamebtn
+            // 
+            this.playgamebtn.Location = new System.Drawing.Point(25, 335);
+            this.playgamebtn.Name = "playgamebtn";
+            this.playgamebtn.Size = new System.Drawing.Size(282, 40);
+            this.playgamebtn.TabIndex = 13;
+            this.playgamebtn.Text = "Start Client";
+            this.playgamebtn.UseVisualStyleBackColor = true;
+            this.playgamebtn.Click += new System.EventHandler(this.playgamebtn_Click);
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.SimpleMenu);
+            this.tabControl1.Controls.Add(this.AdvancedMenu);
+            this.tabControl1.Location = new System.Drawing.Point(15, 160);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(302, 169);
+            this.tabControl1.TabIndex = 14;
+            // 
+            // SimpleMenu
+            // 
+            this.SimpleMenu.Controls.Add(this.stopbtn);
+            this.SimpleMenu.Controls.Add(this.startbtn);
+            this.SimpleMenu.Location = new System.Drawing.Point(4, 22);
+            this.SimpleMenu.Name = "SimpleMenu";
+            this.SimpleMenu.Padding = new System.Windows.Forms.Padding(3);
+            this.SimpleMenu.Size = new System.Drawing.Size(294, 143);
+            this.SimpleMenu.TabIndex = 0;
+            this.SimpleMenu.Text = "Simple";
+            this.SimpleMenu.UseVisualStyleBackColor = true;
+            // 
+            // AdvancedMenu
+            // 
+            this.AdvancedMenu.Controls.Add(this.wserverstartbtn);
+            this.AdvancedMenu.Controls.Add(this.wserverstopbtn);
+            this.AdvancedMenu.Controls.Add(this.loadsettingsbtn);
+            this.AdvancedMenu.Controls.Add(this.serverstartbtn);
+            this.AdvancedMenu.Controls.Add(this.settingsbtn);
+            this.AdvancedMenu.Controls.Add(this.serverstopbtn);
+            this.AdvancedMenu.Controls.Add(this.mysqlstopbtn);
+            this.AdvancedMenu.Controls.Add(this.mysqlstartbtn);
+            this.AdvancedMenu.Location = new System.Drawing.Point(4, 22);
+            this.AdvancedMenu.Name = "AdvancedMenu";
+            this.AdvancedMenu.Padding = new System.Windows.Forms.Padding(3);
+            this.AdvancedMenu.Size = new System.Drawing.Size(294, 143);
+            this.AdvancedMenu.TabIndex = 1;
+            this.AdvancedMenu.Text = "Advanced";
+            this.AdvancedMenu.UseVisualStyleBackColor = true;
+            // 
+            // global
+            // 
+            this.global.Location = new System.Drawing.Point(15, 142);
+            this.global.Name = "global";
+            this.global.Size = new System.Drawing.Size(593, 13);
+            this.global.TabIndex = 15;
+            // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(622, 397);
-            this.Controls.Add(this.loadsettingsbtn);
-            this.Controls.Add(this.settingsbtn);
+            this.ClientSize = new System.Drawing.Size(623, 399);
+            this.Controls.Add(this.global);
+            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.playgamebtn);
             this.Controls.Add(this.Header);
             this.Controls.Add(this.ConsoleTabs);
-            this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -272,7 +321,7 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "Rotux Private Server";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainMenu_FormClosing);
-            this.panel1.ResumeLayout(false);
+            this.Load += new System.EventHandler(this.MainMenu_Load);
             this.ConsoleTabs.ResumeLayout(false);
             this.wServerConsole.ResumeLayout(false);
             this.wServerConsole.PerformLayout();
@@ -281,6 +330,9 @@
             this.MySQLConsole.ResumeLayout(false);
             this.MySQLConsole.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Header)).EndInit();
+            this.tabControl1.ResumeLayout(false);
+            this.SimpleMenu.ResumeLayout(false);
+            this.AdvancedMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -295,7 +347,6 @@
         private System.Windows.Forms.Button mysqlstopbtn;
         private System.Windows.Forms.Button startbtn;
         private System.Windows.Forms.Button stopbtn;
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TabControl ConsoleTabs;
         private System.Windows.Forms.TabPage wServerConsole;
         private System.Windows.Forms.TabPage serverConsole;
@@ -306,6 +357,11 @@
         private System.Windows.Forms.PictureBox Header;
         private System.Windows.Forms.Button settingsbtn;
         private System.Windows.Forms.Button loadsettingsbtn;
+        private System.Windows.Forms.Button playgamebtn;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage SimpleMenu;
+        private System.Windows.Forms.TabPage AdvancedMenu;
+        private System.Windows.Forms.ProgressBar global;
     }
 }
 
