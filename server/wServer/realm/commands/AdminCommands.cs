@@ -19,7 +19,7 @@ namespace wServer.realm.commands
 {
     internal class SendCommand : Command
     {
-        public SendCommand() : base("send", 0) { }
+        public SendCommand() : base("send", 5) { }
 
         protected override bool Process(Player player, RealmTime time, string[] args)
         {
