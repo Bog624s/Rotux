@@ -181,6 +181,7 @@ namespace Rotux
         private void RunSetup_Click(object sender, EventArgs e)
         {
             Process.Start(Assembly.GetExecutingAssembly().Location, "setup");
+            Close();
         }
 
         private void wserverstartbtn_Click(object sender, EventArgs e)
