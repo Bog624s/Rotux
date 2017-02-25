@@ -33,4 +33,12 @@ public class Settings
                 }
         }
     }
+
+    internal void Save()
+    {
+        List<string> f = new List<string>();
+        foreach (KeyValuePair<string,string> setting in data)
+            f.Add(setting.Key + "=" + setting.Value);
+        File.WriteAllLines(file,f.ToArray());
+    }
 }

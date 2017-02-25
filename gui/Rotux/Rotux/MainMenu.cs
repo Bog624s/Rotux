@@ -99,6 +99,13 @@ namespace Rotux
             KillProcess("cmd.exe");
         }
 
+        public void DatabaseCreate()
+        {
+            MySQL.Start();
+            Thread.Sleep(1);
+            UpdateDatabase.LoadSQL(s);
+        }
+
         private void settingsbtn_Click(object sender, EventArgs e)
         {
             s.Edit();
@@ -169,7 +176,12 @@ namespace Rotux
         {
             UpdateDatabase.LoadSQL(s);
         }
-        
+
+        private void RunSetup_Click(object sender, EventArgs e)
+        {
+            Process.Start(Assembly.GetExecutingAssembly().Location, "setup");
+        }
+
         private void wserverstartbtn_Click(object sender, EventArgs e)
         {
             wServer.Start();

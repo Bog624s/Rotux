@@ -44,6 +44,8 @@
             this.ServerOutput = new System.Windows.Forms.TextBox();
             this.MySQLConsole = new System.Windows.Forms.TabPage();
             this.MySQLOutput = new System.Windows.Forms.TextBox();
+            this.RealConsole = new System.Windows.Forms.TabPage();
+            this.ConsoleOutput = new System.Windows.Forms.TextBox();
             this.Header = new System.Windows.Forms.PictureBox();
             this.settingsbtn = new System.Windows.Forms.Button();
             this.loadsettingsbtn = new System.Windows.Forms.Button();
@@ -53,17 +55,16 @@
             this.AdvancedMenu = new System.Windows.Forms.TabPage();
             this.dbcreatebtn = new System.Windows.Forms.Button();
             this.global = new System.Windows.Forms.ProgressBar();
-            this.RealConsole = new System.Windows.Forms.TabPage();
-            this.ConsoleOutput = new System.Windows.Forms.TextBox();
+            this.RunSetup = new System.Windows.Forms.Button();
             this.ConsoleTabs.SuspendLayout();
             this.wServerConsole.SuspendLayout();
             this.serverConsole.SuspendLayout();
             this.MySQLConsole.SuspendLayout();
+            this.RealConsole.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Header)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.SimpleMenu.SuspendLayout();
             this.AdvancedMenu.SuspendLayout();
-            this.RealConsole.SuspendLayout();
             this.SuspendLayout();
             // 
             // wserverstartbtn
@@ -221,6 +222,26 @@
             this.MySQLOutput.Size = new System.Drawing.Size(269, 187);
             this.MySQLOutput.TabIndex = 1;
             // 
+            // RealConsole
+            // 
+            this.RealConsole.Controls.Add(this.ConsoleOutput);
+            this.RealConsole.Location = new System.Drawing.Point(4, 22);
+            this.RealConsole.Name = "RealConsole";
+            this.RealConsole.Size = new System.Drawing.Size(281, 201);
+            this.RealConsole.TabIndex = 3;
+            this.RealConsole.Text = "Console";
+            this.RealConsole.UseVisualStyleBackColor = true;
+            // 
+            // ConsoleOutput
+            // 
+            this.ConsoleOutput.Location = new System.Drawing.Point(6, 7);
+            this.ConsoleOutput.Multiline = true;
+            this.ConsoleOutput.Name = "ConsoleOutput";
+            this.ConsoleOutput.ReadOnly = true;
+            this.ConsoleOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.ConsoleOutput.Size = new System.Drawing.Size(269, 187);
+            this.ConsoleOutput.TabIndex = 2;
+            // 
             // Header
             // 
             this.Header.BackgroundImage = global::Rotux.Properties.Resources.sand;
@@ -285,6 +306,7 @@
             // 
             // AdvancedMenu
             // 
+            this.AdvancedMenu.Controls.Add(this.RunSetup);
             this.AdvancedMenu.Controls.Add(this.dbcreatebtn);
             this.AdvancedMenu.Controls.Add(this.wserverstartbtn);
             this.AdvancedMenu.Controls.Add(this.wserverstopbtn);
@@ -319,25 +341,15 @@
             this.global.Size = new System.Drawing.Size(593, 13);
             this.global.TabIndex = 15;
             // 
-            // RealConsole
+            // RunSetup
             // 
-            this.RealConsole.Controls.Add(this.ConsoleOutput);
-            this.RealConsole.Location = new System.Drawing.Point(4, 22);
-            this.RealConsole.Name = "RealConsole";
-            this.RealConsole.Size = new System.Drawing.Size(281, 201);
-            this.RealConsole.TabIndex = 3;
-            this.RealConsole.Text = "Console";
-            this.RealConsole.UseVisualStyleBackColor = true;
-            // 
-            // ConsoleOutput
-            // 
-            this.ConsoleOutput.Location = new System.Drawing.Point(6, 7);
-            this.ConsoleOutput.Multiline = true;
-            this.ConsoleOutput.Name = "ConsoleOutput";
-            this.ConsoleOutput.ReadOnly = true;
-            this.ConsoleOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.ConsoleOutput.Size = new System.Drawing.Size(269, 187);
-            this.ConsoleOutput.TabIndex = 2;
+            this.RunSetup.Location = new System.Drawing.Point(164, 122);
+            this.RunSetup.Name = "RunSetup";
+            this.RunSetup.Size = new System.Drawing.Size(124, 23);
+            this.RunSetup.TabIndex = 14;
+            this.RunSetup.Text = "Run Setup";
+            this.RunSetup.UseVisualStyleBackColor = true;
+            this.RunSetup.Click += new System.EventHandler(this.RunSetup_Click);
             // 
             // MainMenu
             // 
@@ -365,12 +377,12 @@
             this.serverConsole.PerformLayout();
             this.MySQLConsole.ResumeLayout(false);
             this.MySQLConsole.PerformLayout();
+            this.RealConsole.ResumeLayout(false);
+            this.RealConsole.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Header)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.SimpleMenu.ResumeLayout(false);
             this.AdvancedMenu.ResumeLayout(false);
-            this.RealConsole.ResumeLayout(false);
-            this.RealConsole.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -403,6 +415,7 @@
         private System.Windows.Forms.Button dbcreatebtn;
         private System.Windows.Forms.TabPage RealConsole;
         private System.Windows.Forms.TextBox ConsoleOutput;
+        private System.Windows.Forms.Button RunSetup;
     }
 }
 

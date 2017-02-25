@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace Rotux
@@ -15,19 +16,62 @@ namespace Rotux
         [STAThread]
         static void Main(string[] args)
         {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
             if (!(args.Length == 1 && args[0] == "debug"))
                 AppDomain.CurrentDomain.UnhandledException += ExceptionHandler;
             string setting = "config.cfg";
             bool excmode = false;
-            if (args.Length == 2)
+            bool setupmode = false;
+            bool dbmode = false;
+            if (args.Length > 0)
             {
                 if (args[0] == "exception")
                     excmode = true;
+                if (args[0] == "setup")
+                    setupmode = true;
+                if (args[0] == "database")
+                    dbmode = true;
             }
+            if (!File.Exists(setting))
+            {
+                File.WriteAllText("doSetup","true");
+                setupmode = true;
+                File.WriteAllText(setting, @"# General Settings
+Title=Rotux Private Server
+Working Folder=..\..\..\..\..
+
+# Images
+Background=null
+Header=null
+
+# MySQL Paths
+MySQL=\xampp\mysql\bin\mysql.exe
+MySQL Start=\xampp\mysql_start.bat
+MySQL Stop=\xampp\mysql_stop.bat
+
+# MySQL Settings
+MySQL File=server\bin\Debug\database.sql
+MySQL Host=127.0.0.1
+MySQL Port=3306
+MySQL Username=root
+MySQL Password=
+
+# Private Server Paths
+World Server=server\bin\Debug\wServer.exe
+Request Server=server\bin\Debug\server.exe
+
+# Client Paths
+Flash Player=client\flashplayer.exe
+Flash Download=https://fpdownload.macromedia.com/pub/flashplayer/updaters/24/flashplayer_24_sa.exe
+Client=client\client.swf");
+            }
+
+            if (File.Exists("doSetup"))
+                setupmode = true;
+
             if (excmode)
             {
-                Application.EnableVisualStyles();
-                Application.SetCompatibleTextRenderingDefault(false);
                 Application.Run(new ExceptionWindow(Base64Decode(args[1])));
             }
             else
@@ -37,9 +81,33 @@ namespace Rotux
                     if (File.Exists(s))
                         setting = s;
                 }
-                Application.EnableVisualStyles();
-                Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new MainMenu(new Settings(setting)));
+                if (setupmode)
+                {
+                    Application.Run(new RotuxSetup(new Settings(setting)));
+                }
+                else if (dbmode)
+                {
+                    var s = new Settings(setting);
+                    var x = Process.Start(new ProcessStartInfo()
+                    {
+                        FileName = s.data["MySQL Start"],
+                        CreateNoWindow = true,
+                        UseShellExecute = false
+                    }); Thread.Sleep(1);
+                    UpdateDatabase.LoadSQL(s);
+                    Thread.Sleep(1);
+                    x.Kill();
+                    x = Process.Start(new ProcessStartInfo()
+                    {
+                        FileName = s.data["MySQL Stop"],
+                        CreateNoWindow = true,
+                        UseShellExecute = false
+                    });
+                }
+                else
+                {
+                    Application.Run(new MainMenu(new Settings(setting)));
+                }
 
             }
         }
