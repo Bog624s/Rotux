@@ -25,7 +25,7 @@ namespace Rotux
             Console.SetOut(console);
             if (!File.Exists(s.data["Flash Player"]))
             {
-                playgamebtn.Text = "Download Projector";
+                playgamebtn.Text = "Download Projector & Start Client";
             }
         }
 
@@ -135,12 +135,13 @@ namespace Rotux
                 {
                     client.DownloadProgressChanged += (s, e) =>
                     {
-                        BeginInvoke(new Action(() => global.Value = e.ProgressPercentage / 2));
+                        BeginInvoke(new Action(() => global.Value = e.ProgressPercentage));
                     };
                     client.DownloadFileCompleted += (s, e) =>
                     {
                         BeginInvoke(new Action(() => global.Value = 100));
                         BeginInvoke(new Action(() => playgamebtn.Text = "Start Client"));
+                        BeginInvoke(new Action(() => playgamebtn_Click(this, null)));
                     };
                     client.DownloadFileAsync(new Uri(s.data["Flash Download"]), s.data["Flash Player"]);
                 }

@@ -84,26 +84,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConsoleWriter.cs" />
-    <Compile Include="ExceptionWindow.cs">
+    <Compile Include="Classes\ConsoleWriter.cs" />
+    <Compile Include="Forms\ExceptionWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ExceptionWindow.Designer.cs">
+    <Compile Include="Forms\ExceptionWindow.Designer.cs">
       <DependentUpon>ExceptionWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="RotuxSetup.cs">
+    <Compile Include="Forms\RotuxSetup.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RotuxSetup.Designer.cs">
+    <Compile Include="Forms\RotuxSetup.Designer.cs">
       <DependentUpon>RotuxSetup.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainMenu.cs">
+    <Compile Include="Forms\MainMenu.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainMenu.Designer.cs">
+    <Compile Include="Forms\MainMenu.Designer.cs">
       <DependentUpon>MainMenu.cs</DependentUpon>
     </Compile>
-    <Compile Include="ProcessHandler.cs" />
+    <Compile Include="Classes\ProcessHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -111,18 +111,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Settings.cs" />
-    <Compile Include="TablessControl.cs">
+    <Compile Include="Classes\Settings.cs" />
+    <Compile Include="Controls\TablessControl.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UpdateDatabase.cs" />
-    <EmbeddedResource Include="ExceptionWindow.resx">
+    <Compile Include="Classes\UpdateDatabase.cs" />
+    <EmbeddedResource Include="Forms\ExceptionWindow.resx">
       <DependentUpon>ExceptionWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RotuxSetup.resx">
+    <EmbeddedResource Include="Forms\RotuxSetup.resx">
       <DependentUpon>RotuxSetup.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainMenu.resx">
+    <EmbeddedResource Include="Forms\MainMenu.resx">
       <DependentUpon>MainMenu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
