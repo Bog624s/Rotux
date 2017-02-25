@@ -25,7 +25,7 @@ namespace Rotux
             Console.SetOut(console);
             if (!File.Exists(s.data["Flash Player"]))
             {
-                playgamebtn.Text = "Download Projector & Start Client";
+                playgamebtn.Text = "Download Projector and Start Client";
             }
         }
 
