@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Net;
+using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -13,12 +14,15 @@ namespace Rotux
         ProcessHandler wServer, Server, MySQL;
         string wServerLoc, ServerLoc, MySQLStartLoc, MySQLStopLoc;
         Settings s;
+        TextWriter console;
 
         public MainMenu(Settings s)
         {
             this.s = s;
             InitializeComponent();
             LoadSettings();
+            console = new ControlWriter(ConsoleOutput, this);
+            Console.SetOut(console);
             if (!File.Exists(s.data["Flash Player"]))
             {
                 playgamebtn.Text = "Download Projector";
@@ -27,6 +31,7 @@ namespace Rotux
 
         private void LoadSettings()
         {
+            Directory.SetCurrentDirectory(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location));
             Text = s.data["Title"];
             if (s.data["Background"] != "null")
                 BackgroundImage = Image.FromFile(s.data["Background"]);
@@ -34,7 +39,7 @@ namespace Rotux
             if (s.data["Header"] != "null")
                 Header.Image = Image.FromFile(s.data["Header"]);
 
-            Directory.SetCurrentDirectory(@"..\..\..\..\..");
+            Directory.SetCurrentDirectory(s.data["Working Folder"]);
 
             wServerLoc = s.data["World Server"];
             ServerLoc = s.data["Request Server"];
@@ -141,6 +146,7 @@ namespace Rotux
         private void MainMenu_Load(object sender, EventArgs e)
         {
             KillProcess("cmd.exe");
+            Console.WriteLine("Welcome to Rotux!");
         }
 
         void KillProcess(string process)
@@ -154,6 +160,16 @@ namespace Rotux
             global.Value = 100;
         }
 
+        private void dbcreatebtn_Click(object sender, EventArgs e)
+        {
+            new Thread(UpdateDb).Start();
+        }
+
+        void UpdateDb()
+        {
+            UpdateDatabase.LoadSQL(s);
+        }
+        
         private void wserverstartbtn_Click(object sender, EventArgs e)
         {
             wServer.Start();

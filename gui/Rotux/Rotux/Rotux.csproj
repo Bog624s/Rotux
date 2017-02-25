@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsoleWriter.cs" />
     <Compile Include="ExceptionWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -73,6 +74,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
+    <Compile Include="UpdateDatabase.cs" />
     <EmbeddedResource Include="ExceptionWindow.resx">
       <DependentUpon>ExceptionWindow.cs</DependentUpon>
     </EmbeddedResource>

@@ -15,7 +15,8 @@ namespace Rotux
         [STAThread]
         static void Main(string[] args)
         {
-            AppDomain.CurrentDomain.UnhandledException += ExceptionHandler;
+            if (!(args.Length == 1 && args[0] == "debug"))
+                AppDomain.CurrentDomain.UnhandledException += ExceptionHandler;
             string setting = "config.cfg";
             bool excmode = false;
             if (args.Length == 2)
