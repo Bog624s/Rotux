@@ -19,6 +19,10 @@ namespace Rotux
             this.s = s;
             InitializeComponent();
             LoadSettings();
+            if (!File.Exists(s.data["Flash Player"]))
+            {
+                playgamebtn.Text = "Download Projector";
+            }
         }
 
         private void LoadSettings()
@@ -123,13 +127,15 @@ namespace Rotux
                     };
                     client.DownloadFileCompleted += (s, e) =>
                     {
-                        BeginInvoke(new Action(() => global.Value = 50));
+                        BeginInvoke(new Action(() => global.Value = 100));
+                        BeginInvoke(new Action(() => playgamebtn.Text = "Start Client"));
                     };
                     client.DownloadFileAsync(new Uri(s.data["Flash Download"]), s.data["Flash Player"]);
                 }
+            } else
+            {
+                Process.Start(s.data["Flash Player"], s.data["Client"]);
             }
-            Process.Start(s.data["Flash Player"], s.data["Client"]);
-            BeginInvoke(new Action(() => global.Value = 100));
         }
 
         private void MainMenu_Load(object sender, EventArgs e)

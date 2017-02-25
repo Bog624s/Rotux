@@ -12,6 +12,10 @@ namespace Rotux
         Form parent;
         public ProcessHandler(TextBox t, string file, Form p)
         {
+            if (!File.Exists(file))
+            {
+                throw new FileNotFoundException("The file " + file + " was not found!");
+            }
             parent = p;
             textbox = t;
             process = new Process();

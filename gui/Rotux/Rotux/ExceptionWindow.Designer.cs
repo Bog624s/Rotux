@@ -53,7 +53,9 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ExceptionWindow";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Fatal Error";
+            this.TopMost = true;
             this.ResumeLayout(false);
             this.PerformLayout();
 
