@@ -85,6 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\ConsoleWriter.cs" />
+    <Compile Include="Classes\DetectSettings.cs" />
     <Compile Include="Forms\ChangeParameter.cs">
       <SubType>Form</SubType>
     </Compile>

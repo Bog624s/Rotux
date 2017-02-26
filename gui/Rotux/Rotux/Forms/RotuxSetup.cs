@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace Rotux.Forms
@@ -335,7 +336,7 @@ namespace Rotux.Forms
             {
                 BackBtn.Enabled = false;
             }
-            if (tabControl1.SelectedIndex + 1 == tabControl1.TabCount)
+            if (tabControl1.SelectedIndex + 1 == tabControl1.TabCount - 1)
             {
                 FinishBtn.Enabled = true;
                 NextBtn.Enabled = false;
@@ -378,6 +379,35 @@ namespace Rotux.Forms
         private void RotuxSetup_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void autodetect_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedIndex = tabControl1.TabCount - 1;
+            NextBtn.Enabled = false;
+            BackBtn.Enabled = false;
+            FinishBtn.Enabled = false;
+            new Thread(Detect).Start();
+        }
+        void Detect()
+        {
+            DetectSettings x = new DetectSettings(s, AutoDetectProgress, AutoDetectConsole, WorkingOn);
+            x.Detect();
+            s = x.Get();
+            string text = "";
+            BeginInvoke(new Action(() => text = AutoDetectConsole.Text));
+            if (!text.Contains("moving"))
+            {
+                BeginInvoke(new Action(() => tabControl1.SelectedIndex -= 1));
+            } else
+            {
+                BeginInvoke(new Action(() => AutoDetectConsole.AppendText("\n\n**** WARNING **** \n\n There were some issues with the setup, please resolve them and run setup again.")));
+            }
+        }
+
+        private void RotuxSetup_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Environment.Exit(0);
         }
     }
 }

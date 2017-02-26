@@ -123,6 +123,15 @@
   <metadata name="openFileDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>163, 17</value>
   </metadata>
+  <data name="label25.Text" xml:space="preserve">
+    <value>If you run the Rotux server source, it is recommended
+that you shouldn't change anything, just click next until
+you can click the finish button, but if you run any other
+source and you want to auto-detect settings you can use
+the auto-detector. If you know where you have XAMPP
+installed, where are your private server files located you
+can use this wizard.</value>
+  </data>
   <data name="label20.Text" xml:space="preserve">
     <value>Here you can change the window title into
 anythingyou want, you can change the work

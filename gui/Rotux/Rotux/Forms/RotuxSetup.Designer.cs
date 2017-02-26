@@ -37,9 +37,10 @@ namespace Rotux.Forms
             this.NextBtn = new System.Windows.Forms.Button();
             this.FinishBtn = new System.Windows.Forms.Button();
             this.BackBtn = new System.Windows.Forms.Button();
-            this.tabControl1 = new TablessControl();
+            this.tabControl1 = new Rotux.Controls.TablessControl();
             this.welcome = new System.Windows.Forms.TabPage();
-            this.label16 = new System.Windows.Forms.Label();
+            this.autodetect = new System.Windows.Forms.Button();
+            this.label25 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label15 = new System.Windows.Forms.Label();
             this.page1 = new System.Windows.Forms.TabPage();
@@ -102,6 +103,12 @@ namespace Rotux.Forms
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label24 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
+            this.auto = new System.Windows.Forms.TabPage();
+            this.WorkingOn = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.AutoDetectProgress = new System.Windows.Forms.ProgressBar();
+            this.AutoDetectConsole = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.welcome.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -113,6 +120,7 @@ namespace Rotux.Forms
             this.page3.SuspendLayout();
             this.finish.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.auto.SuspendLayout();
             this.SuspendLayout();
             // 
             // openFileDialog
@@ -166,6 +174,7 @@ namespace Rotux.Forms
             this.tabControl1.Controls.Add(this.page2);
             this.tabControl1.Controls.Add(this.page3);
             this.tabControl1.Controls.Add(this.finish);
+            this.tabControl1.Controls.Add(this.auto);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -175,7 +184,8 @@ namespace Rotux.Forms
             // 
             // welcome
             // 
-            this.welcome.Controls.Add(this.label16);
+            this.welcome.Controls.Add(this.autodetect);
+            this.welcome.Controls.Add(this.label25);
             this.welcome.Controls.Add(this.pictureBox1);
             this.welcome.Controls.Add(this.label15);
             this.welcome.Location = new System.Drawing.Point(4, 22);
@@ -185,15 +195,24 @@ namespace Rotux.Forms
             this.welcome.Text = "Welcome";
             this.welcome.UseVisualStyleBackColor = true;
             // 
-            // label16
+            // autodetect
             // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(17, 60);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(225, 52);
-            this.label16.TabIndex = 2;
-            this.label16.Text = "Using the Rotux Setup Wizard you can\r\nsetup your private server manager very easi" +
-    "ly\r\nand you can start your server in one click after\r\nthis has been set up.";
+            this.autodetect.Location = new System.Drawing.Point(62, 159);
+            this.autodetect.Name = "autodetect";
+            this.autodetect.Size = new System.Drawing.Size(162, 23);
+            this.autodetect.TabIndex = 4;
+            this.autodetect.Text = "Auto-Detect Settings";
+            this.autodetect.UseVisualStyleBackColor = true;
+            this.autodetect.Click += new System.EventHandler(this.autodetect_Click);
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(17, 49);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(275, 91);
+            this.label25.TabIndex = 3;
+            this.label25.Text = resources.GetString("label25.Text");
             // 
             // pictureBox1
             // 
@@ -836,6 +855,67 @@ namespace Rotux.Forms
             this.label23.TabIndex = 49;
             this.label23.Text = "Setup Complete";
             // 
+            // auto
+            // 
+            this.auto.Controls.Add(this.WorkingOn);
+            this.auto.Controls.Add(this.label26);
+            this.auto.Controls.Add(this.label16);
+            this.auto.Controls.Add(this.AutoDetectProgress);
+            this.auto.Controls.Add(this.AutoDetectConsole);
+            this.auto.Location = new System.Drawing.Point(4, 22);
+            this.auto.Name = "auto";
+            this.auto.Size = new System.Drawing.Size(534, 305);
+            this.auto.TabIndex = 5;
+            this.auto.Text = "Detect";
+            this.auto.UseVisualStyleBackColor = true;
+            // 
+            // WorkingOn
+            // 
+            this.WorkingOn.AutoSize = true;
+            this.WorkingOn.Location = new System.Drawing.Point(4, 289);
+            this.WorkingOn.Name = "WorkingOn";
+            this.WorkingOn.Size = new System.Drawing.Size(38, 13);
+            this.WorkingOn.TabIndex = 52;
+            this.WorkingOn.Text = "Ready";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(17, 60);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(281, 39);
+            this.label26.TabIndex = 51;
+            this.label26.Text = "We are currently searching for the files needed\r\nfor your private server to run, " +
+    "this may take a while...\r\nClick the finish button when complete to save the sett" +
+    "ings.";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label16.Location = new System.Drawing.Point(13, 12);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(329, 37);
+            this.label16.TabIndex = 50;
+            this.label16.Text = "Auto-Detect Settings";
+            // 
+            // AutoDetectProgress
+            // 
+            this.AutoDetectProgress.Location = new System.Drawing.Point(3, 115);
+            this.AutoDetectProgress.Name = "AutoDetectProgress";
+            this.AutoDetectProgress.Size = new System.Drawing.Size(528, 23);
+            this.AutoDetectProgress.TabIndex = 1;
+            // 
+            // AutoDetectConsole
+            // 
+            this.AutoDetectConsole.Location = new System.Drawing.Point(3, 144);
+            this.AutoDetectConsole.Multiline = true;
+            this.AutoDetectConsole.Name = "AutoDetectConsole";
+            this.AutoDetectConsole.ReadOnly = true;
+            this.AutoDetectConsole.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.AutoDetectConsole.Size = new System.Drawing.Size(528, 139);
+            this.AutoDetectConsole.TabIndex = 0;
+            // 
             // RotuxSetup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -852,6 +932,7 @@ namespace Rotux.Forms
             this.Name = "RotuxSetup";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Rotux Setup";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.RotuxSetup_FormClosing);
             this.Load += new System.EventHandler(this.RotuxSetup_Load);
             this.tabControl1.ResumeLayout(false);
             this.welcome.ResumeLayout(false);
@@ -869,6 +950,8 @@ namespace Rotux.Forms
             this.finish.ResumeLayout(false);
             this.finish.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.auto.ResumeLayout(false);
+            this.auto.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -932,7 +1015,6 @@ namespace Rotux.Forms
         private System.Windows.Forms.TabPage welcome;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label19;
@@ -946,5 +1028,13 @@ namespace Rotux.Forms
         private System.Windows.Forms.CheckBox GitHub;
         private System.Windows.Forms.CheckBox StartOnExit;
         private System.Windows.Forms.CheckBox databasecreate;
+        private System.Windows.Forms.Button autodetect;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.TabPage auto;
+        private System.Windows.Forms.TextBox AutoDetectConsole;
+        private System.Windows.Forms.ProgressBar AutoDetectProgress;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label WorkingOn;
     }
 }
