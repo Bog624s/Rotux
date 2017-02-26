@@ -68,22 +68,10 @@ namespace Rotux.Classes
                 SetProgress(90 / proc);
             }
             SetProgress(100 / proc);
-            WriteLine("Searching for 'database.sql'...");
-            string[] sqlfiles = Search("database.sql").ToArray();
-            SetProgress(115 / proc);
-            if (sqlfiles.Length > 0)
-            {
-                WriteLine("'database.sql' was found, setting it...");
-                s.data["MySQL File"] = sqlfiles[0];
-            } else
-            {
-                WriteLine("'database.sql' was not found, moving on...");
-            }
-            SetProgress(130 / proc);
             tempstr = "";
             WriteLine("Searching for private server files...");
             string[] server = Search("wServer.exe").ToArray();
-            SetProgress(166 / proc);
+            SetProgress(133 / proc);
             if (server.Length > 0)
             {
                 WriteLine("World Server was found, setting it...");
@@ -101,11 +89,11 @@ namespace Rotux.Classes
             {
                 WriteLine("World Server was not found, moving on...");
             }
-            SetProgress(175 / proc);
+            SetProgress(166 / proc);
             if (tempstr != "")
             {
                 WriteLine("Searching for Client...");
-                string[] files = Directory.GetFiles(tempstr, "*swf", SearchOption.AllDirectories);
+                string[] files = Directory.GetFiles(tempstr, "*.swf", SearchOption.AllDirectories);
                 SetProgress(190 / proc);
                 if (files.Length > 0)
                 {
@@ -115,7 +103,29 @@ namespace Rotux.Classes
                 {
                     WriteLine("Client was not found, moving on...");
                 }
+            } else
+            {
+                WriteLine("Not searching for cleint, moving on...");
             }
+            if (tempstr != "")
+            {
+                WriteLine("Searching for database...");
+                string[] files = Directory.GetFiles(tempstr, "*.sql", SearchOption.AllDirectories);
+                SetProgress(175 / proc);
+                if (files.Length > 0)
+                {
+                    WriteLine("Database was found, setting it...");
+                    s.data["MySQL File"] = files[0];
+                }
+                else
+                {
+                    WriteLine("Database was not found, moving on...");
+                }
+            } else
+            {
+                WriteLine("Not searching for database, moving on...");
+            }
+            SetProgress(190 / proc);
             WriteLine("Setting working path to current directory...");
             s.data["Working Folder"] = back;
             s.data["Flash Player"] = back + "\\flashplayer.exe"; 
