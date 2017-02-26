@@ -49,19 +49,7 @@ namespace wServer.realm.entities.player
                 Client = psr;
                 Manager = psr.Manager;
                 StatsManager = new StatsManager(this, psr.Random.CurrentSeed);
-                switch(psr.Account.Rank)
-                {
-                    case 0:
-                        Name = "[Player]" + psr.Account.Name;
-                        break;
-                    case 1:
-                        Name = "[Helper]" + psr.Account.Name;
-                        break;
-                    default:
-                        Name = "[Other]" + psr.Account.Name;
-                        break;
-
-                }
+                Name = psr.Account.Name;
                 AccountId = psr.Account.AccountId;
                 FameCounter = new FameCounter(this);
                 Tokens = psr.Account.FortuneTokens;

@@ -390,9 +390,11 @@
     <Compile Include="realm\entities\player\Player.cs" />
     <Compile Include="realm\entities\Projectile.cs" />
     <Compile Include="realm\GuildManager.cs" />
+    <Compile Include="realm\Inflation.cs" />
     <Compile Include="realm\LogicTicker.cs" />
     <Compile Include="realm\NetworkTicker.cs" />
     <Compile Include="realm\PetLevel.cs" />
+    <Compile Include="realm\Ranks.cs" />
     <Compile Include="realm\RealmManager.cs" />
     <Compile Include="realm\RealmPortalMonitor.cs" />
     <Compile Include="realm\setpieces\AbyssDeath.cs" />

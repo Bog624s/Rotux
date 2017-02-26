@@ -11,6 +11,7 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
+-- Made by Mihail Mojsoski optimized for Windows and Linux
 
 -- Dumping database structure for rotmgprod
 CREATE DATABASE IF NOT EXISTS `rotmgprod` /*!40100 DEFAULT CHARACTER SET latin1 */;
@@ -219,7 +220,7 @@ CREATE TABLE IF NOT EXISTS `news` (
   `icon` varchar(16) NOT NULL DEFAULT 'info',
   `title` varchar(128) NOT NULL DEFAULT 'Default news title',
   `text` varchar(128) NOT NULL DEFAULT 'Default news text',
-  `link` varchar(256) NOT NULL DEFAULT 'http://mmoe.net/',
+  `link` varchar(256) NOT NULL DEFAULT 'http://github.com/MihailProg/Rotux',
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`,`text`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;

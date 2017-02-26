@@ -22,7 +22,7 @@ namespace wServer.realm
         {
             src.Owner.BroadcastPacketSync(new TextPacket()
             {
-                Name = (src.Client.Account.Rank >= 2 ? "@" : src.Client.Account.Rank >= 1 ? "#" : "") + src.Name,
+                Name = src.GetRanked(),
                 ObjectId = src.Id,
                 Stars = src.Stars,
                 BubbleTime = 10,

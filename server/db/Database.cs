@@ -47,20 +47,22 @@ namespace db
                     host, database ?? "rotmgprod", user ?? "root", password ?? ""));
             _con.Open();
 
-            if (File.Exists("UnlockedAccounts.txt"))
-            {
-                using (StreamReader rdr = new StreamReader("UnlockedAccounts.txt"))
-                {
-                    string s;
-                    do
-                    {
-                        s = rdr.ReadLine();
-                        if (s != null && !s.StartsWith("#"))
-                            if(!emails.Contains(s))
-                                emails.Add(s);
-                    } while (s != null);
-                }
-            }
+            // If you need this, uncomment it.
+
+            //if (File.Exists("UnlockedAccounts.txt"))
+            //{
+            //    using (StreamReader rdr = new StreamReader("UnlockedAccounts.txt"))
+            //    {
+            //        string s;
+            //        do
+            //        {
+            //            s = rdr.ReadLine();
+            //            if (s != null && !s.StartsWith("#"))
+            //                if(!emails.Contains(s))
+            //                    emails.Add(s);
+            //        } while (s != null);
+            //    }
+            //}
         }
 
         public Database()

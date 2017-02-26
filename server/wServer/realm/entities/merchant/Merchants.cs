@@ -75,13 +75,13 @@ namespace wServer.realm.entities.merchant
             if (player.Stars < RankReq) return false;
 
             if (Currency == CurrencyType.Fame)
-                if (acc.Stats.Fame < Price) return false;
+                if (acc.Stats.Fame < (int)(Price * MerchantLists.inf.Get(player))) return false;
 
             if (Currency == CurrencyType.Gold)
-                if (acc.Credits < Price) return false;
+                if (acc.Credits < (int)(Price * MerchantLists.inf.Get(player))) return false;
 
             if (Currency == CurrencyType.FortuneTokens)
-                if (acc.FortuneTokens < Price) return false;
+                if (acc.FortuneTokens < (int)(Price * MerchantLists.inf.Get(player))) return false;
             return true;
         }
 
@@ -109,15 +109,15 @@ namespace wServer.realm.entities.merchant
                                     if (Currency == CurrencyType.Fame)
                                         player.CurrentFame =
                                             player.Client.Account.Stats.Fame =
-                                                db.UpdateFame(player.Client.Account, -Price);
+                                                db.UpdateFame(player.Client.Account, -(int)(Price * MerchantLists.inf.Get(player)));
                                     if (Currency == CurrencyType.Gold)
                                         player.Credits =
                                             player.Client.Account.Credits =
-                                                db.UpdateCredit(player.Client.Account, -Price);
+                                                db.UpdateCredit(player.Client.Account, -(int)(Price * MerchantLists.inf.Get(player)));
                                     if (Currency == CurrencyType.FortuneTokens)
                                         player.Tokens =
                                             player.Client.Account.FortuneTokens =
-                                                db.UpdateFortuneToken(player.Client.Account, -Price);
+                                                db.UpdateFortuneToken(player.Client.Account, -(int)(Price * MerchantLists.inf.Get(player)));
 
                                     player.Client.SendPacket(new BuyResultPacket
                                     {
@@ -343,8 +343,8 @@ namespace wServer.realm.entities.merchant
                 if (prices.TryGetValue(MType, out price))
                 {
                     if (Discount != 0)
-                        Price = (int)(price.Item1 - (price.Item1 * ((double)Discount / 100))) < 1 ?
-                            price.Item1 : (int)(price.Item1 - (price.Item1 * ((double)Discount / 100)));
+                        Price = ((int)(price.Item1 - (price.Item1 * ((double)Discount / 100))) < 1 ?
+                            price.Item1 : (int)(price.Item1 - (price.Item1 * ((double)Discount / 100))));
                     else
                         Price = price.Item1;
                     Currency = price.Item2;

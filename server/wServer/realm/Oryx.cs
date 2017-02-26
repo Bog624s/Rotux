@@ -28,7 +28,7 @@ namespace wServer.realm
             Tuple.Create("Grand Sphinx", (ISetPiece) new Sphinx()),
             //"Lord of the Lost Lands",
             //"Hermit God",
-            //"Ghost Ship",
+            Tuple.Create("Ghost Ship", (ISetPiece) new GhostShip()),
             Tuple.Create("Cube God", (ISetPiece) new CubeGod()),
         };
 
@@ -382,10 +382,10 @@ namespace wServer.realm
 
         public void OnPlayerEntered(Player player)
         {
-            player.SendInfo("Welcome to Realm of the Mad God");
+            player.SendInfo("Welcome to Rotux Private Server");
             player.SendEnemy("Oryx the Mad God", "You are food for my minions!");
             player.SendInfo("Use [WASDQE] to move; click to shoot!");
-            player.SendInfo("Type \"/help\" for more help");
+            player.SendInfo("Type \"/help\" or \"/commands\" for more help");
         }
 
         public void Tick(RealmTime time)

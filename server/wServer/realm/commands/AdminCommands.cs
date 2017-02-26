@@ -17,6 +17,26 @@ using wServer.realm.worlds;
 
 namespace wServer.realm.commands
 {
+
+    internal class InflationCommand : Command
+    {
+        public InflationCommand() : base("inf", 0)
+        {
+        }
+
+        protected override bool Process(Player player, RealmTime time, string[] args)
+        {
+            int r;
+            if (args.Length == 1 && int.TryParse(args[0], out r))
+            {
+                player.SendInfo("Calculated price: " + (int)(MerchantLists.inf.Get(player) * r));
+                return true;
+            }
+            player.SendInfo($"Your inflation: {(int)(MerchantLists.inf.Get(player) * 100)}% ({(int)(MerchantLists.inf.Get(player))}x)");
+            return true;
+        }
+    }
+
     internal class SendCommand : Command
     {
         public SendCommand() : base("send", 5) { }
@@ -65,7 +85,7 @@ namespace wServer.realm.commands
     internal class addFameCommand : Command
     {
         public addFameCommand()
-            : base("addFame", 5)
+            : base("addFame", 6)
         {
         }
 
@@ -96,7 +116,7 @@ namespace wServer.realm.commands
     internal class TestCommand : Command
     {
         public TestCommand()
-            : base("t", 5)
+            : base("t", 7)
         {
         }
 
@@ -121,7 +141,7 @@ namespace wServer.realm.commands
     internal class AddGiftCodeCommand : Command
     {
         public AddGiftCodeCommand()
-            : base("gcode", 5)
+            : base("gcode", 8)
         {
         }
 
@@ -142,7 +162,7 @@ namespace wServer.realm.commands
     internal class posCmd : Command
     {
         public posCmd()
-            : base("p", 0)
+            : base("p", 1)
         {
         }
 
@@ -156,7 +176,7 @@ namespace wServer.realm.commands
     internal class BanCommand : Command
     {
         public BanCommand() : 
-            base("ban", permLevel: 10)
+            base("ban", 7)
         {
         }
 
@@ -183,7 +203,7 @@ namespace wServer.realm.commands
     internal class AddWorldCommand : Command
     {
         public AddWorldCommand()
-            : base("addworld", 10)
+            : base("addworld", 6)
         {
         }
 
@@ -198,7 +218,7 @@ namespace wServer.realm.commands
     internal class SpawnCommand : Command
     {
         public SpawnCommand()
-            : base("spawn", 2)
+            : base("spawn", 3)
         {
         }
 
@@ -262,7 +282,7 @@ namespace wServer.realm.commands
     internal class AddEffCommand : Command
     {
         public AddEffCommand()
-            : base("addeff", 2)
+            : base("addeff", 4)
         {
         }
 
@@ -296,7 +316,7 @@ namespace wServer.realm.commands
     internal class RemoveEffCommand : Command
     {
         public RemoveEffCommand()
-            : base("remeff", 2)
+            : base("remeff", 4)
         {
         }
 
@@ -328,7 +348,7 @@ namespace wServer.realm.commands
     internal class GiveCommand : Command
     {
         public GiveCommand()
-            : base("give", 2)
+            : base("give", 6)
         {
         }
 
@@ -416,7 +436,7 @@ namespace wServer.realm.commands
 
     class KillAll : Command
     {
-        public KillAll() : base("killAll", permLevel: 3) { }
+        public KillAll() : base("killAll", permLevel: 4) { }
         
         protected override bool Process(Player player, RealmTime time, string[] args)
         {
@@ -446,7 +466,7 @@ namespace wServer.realm.commands
     internal class Kick : Command
     {
         public Kick()
-            : base("kick", 3)
+            : base("kick", 6)
         {
         }
 
@@ -480,7 +500,7 @@ namespace wServer.realm.commands
     internal class Mute : Command
     {
         public Mute()
-            : base("mute", 3)
+            : base("mute", 5)
         {
         }
 
@@ -515,7 +535,7 @@ namespace wServer.realm.commands
     internal class Max : Command
     {
         public Max()
-            : base("max", 0)
+            : base("max", 2)
         {
         }
 
@@ -548,7 +568,7 @@ namespace wServer.realm.commands
     internal class UnMute : Command
     {
         public UnMute()
-            : base("unmute", 3)
+            : base("unmute", 5)
         {
         }
 
@@ -667,7 +687,7 @@ namespace wServer.realm.commands
     internal class Summon : Command
     {
         public Summon()
-            : base("summon", 3)
+            : base("summon", 2)
         {
         }
 
@@ -722,7 +742,7 @@ namespace wServer.realm.commands
     internal class KillPlayerCommand : Command
     {
         public KillPlayerCommand()
-            : base("kill", 10)
+            : base("kill", 6)
         {
         }
 
@@ -746,7 +766,7 @@ namespace wServer.realm.commands
     internal class RestartCommand : Command
     {
         public RestartCommand()
-            : base("restart", 10)
+            : base("restart", 8)
         {
         }
 
@@ -1221,7 +1241,7 @@ namespace wServer.realm.commands
     internal class GodMode : Command
     {
         public GodMode()
-            : base("god", 4)
+            : base("god", 3)
         {
         }
            protected override bool Process(Player player, RealmTime time, string[] args)
@@ -1251,7 +1271,7 @@ namespace wServer.realm.commands
     internal class StarS : Command
     {
         public StarS()
-            : base("stars", 2)
+            : base("stars", 7)
         {
         }
             protected override bool Process(Player player, RealmTime time, string[] args)
@@ -1281,7 +1301,7 @@ namespace wServer.realm.commands
         internal class LevelCommand : Command
     {
         public LevelCommand()
-            : base("level", 0)
+            : base("level", 3)
         {
         }
 
@@ -1314,7 +1334,7 @@ namespace wServer.realm.commands
     internal class SetCommand : Command
     {
         public SetCommand()
-            : base("setStat", 3)
+            : base("setStat", 4)
         {
         }
 
@@ -1473,7 +1493,7 @@ namespace wServer.realm.commands
 
     internal class ListCommands : Command
     {
-        public ListCommands() : base("commands", permLevel: 0) { }
+        public ListCommands() : base("commands", 0) { }
 
         protected override bool Process(Player player, RealmTime time, string[] args)
         {
@@ -1489,8 +1509,11 @@ namespace wServer.realm.commands
             Command[] copy = cmds.Values.ToArray();
             for (int i = 0; i < copy.Length; i++)
             {
-                if (i != 0) sb.Append(", ");
-                sb.Append(copy[i].CommandName);
+                if (copy[i].HasPermission(player))
+                {
+                    if (i != 0) sb.Append(", ");
+                    sb.Append(copy[i].CommandName);
+                }
             }
 
             player.SendInfo(sb.ToString());
@@ -1500,7 +1523,7 @@ namespace wServer.realm.commands
     internal class Visit : Command
     {
         public Visit()
-            : base("visit", permLevel: 3)
+            : base("visit", 3)
         {
         }
 
