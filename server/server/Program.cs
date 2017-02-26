@@ -127,8 +127,6 @@ namespace server
                         }
                         if (File.Exists(file))
                         {
-                            if (file.StartsWith("game/Testing.html"))
-                                file = Settings.GetValue<bool>("testingOnline", "false") ? "game/Testing.html" : "game/TestingIsOffline.html";
                             SendFile(file, context);
                         }
                         else
@@ -187,19 +185,20 @@ namespace server
                 {
                     var send = rdr.ReadToEnd();
 
-                    if (ext == "php")
-                    {
-                        Process p = new Process();
-                        p.StartInfo = new ProcessStartInfo("php\\php-cgi.exe", $"-f {path} {GetPhpArgumentQuery(context.Request.QueryString)}")
-                        {
-                            UseShellExecute = false,
-                            RedirectStandardInput = true,
-                            RedirectStandardOutput = true,
-                            WindowStyle = ProcessWindowStyle.Hidden
-                        };
-                        p.Start();
-                        send = p.StandardOutput.ReadToEnd();
-                    }
+                    // Do you want the server to be a lot larger?
+                    //if (ext == "php")
+                    //{
+                    //    Process p = new Process();
+                    //    p.StartInfo = new ProcessStartInfo("php\\php-cgi.exe", $"-f {path} {GetPhpArgumentQuery(context.Request.QueryString)}")
+                    //    {
+                    //        UseShellExecute = false,
+                    //        RedirectStandardInput = true,
+                    //        RedirectStandardOutput = true,
+                    //        WindowStyle = ProcessWindowStyle.Hidden
+                    //    };
+                    //    p.Start();
+                    //    send = p.StandardOutput.ReadToEnd();
+                    //}
 
                     foreach (var toReplace in replaceVars)
                     {

@@ -2,12 +2,17 @@
 using System.Collections.Specialized;
 using System.IO;
 using System.Net;
+using System.Text;
 using System.Web;
 
 namespace server.account
 {
     internal class validateEmail : RequestHandler
     {
+        void WriteStream(string str)
+        {
+            Context.Response.OutputStream.Write(Encoding.ASCII.GetBytes(str),0,str.Length);
+        }
         protected override void HandleRequest()
         {
             using (Database db = new Database())
@@ -18,9 +23,9 @@ namespace server.account
                 using (StreamWriter wtr = new StreamWriter(Context.Response.OutputStream))
                 {
                     if (cmd.ExecuteNonQuery() == 1)
-                        Program.SendFile("game/verifySuccess.html", Context);
+                        WriteStream("<h1>Verified succesfully!</h1>");
                     else
-                        Program.SendFile("game/verifyFail.html", Context);
+                        WriteStream("<h1>Verification has failed!</h1>");
                 }
             }
         }

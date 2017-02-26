@@ -45,7 +45,7 @@ namespace server.account
 
         const string emailBody = @"Hello,
 
-If your wish to reset your password in Fabiano Swagger of Doom, please use the 
+If your wish to reset your password in our Rotux Private Server, please use the 
 link below:
 
 {RPLINK}
@@ -57,7 +57,9 @@ here:
 
 {SUPPORTLINK}
 
-- Fabiano Swagger of Doom Team
+- The Rotux Private Server Developers
+
+** IF YOU SEE THIS, THE DEVELOPERS ARE LAZY **
 {SERVERDOMAIN}";
     }
 }

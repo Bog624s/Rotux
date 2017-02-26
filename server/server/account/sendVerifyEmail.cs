@@ -12,6 +12,7 @@ namespace server.account
     {
         protected override void HandleRequest()
         {
+            // If not lazy someone implement this...
         }
     }
 }

@@ -16,6 +16,8 @@ namespace server.admin
 {
     public class performCommand : RequestHandler
     {
+        /**
+         * Nobody uses this anyways...
         [DllImport("user32.dll")]
         public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
         [DllImport("user32.dll")]
@@ -50,7 +52,7 @@ namespace server.admin
                 switch (Query["command"])
                 {
                     case "init":
-                        IntPtr hWnd = FindWindow(null, "Fabiano Swagger of Doom - World Server");
+                        IntPtr hWnd = FindWindow(null, "Rotux World Server");
                         bool error;
                         string path = GetProcessPath(hWnd, out error);
                         if (error)
@@ -213,6 +215,10 @@ namespace server.admin
                 new JsonSerializer().Serialize(new JsonTextWriter(wtr), this);
                 return wtr.ToString();
             }
+        }*/
+        protected override void HandleRequest()
+        {
+
         }
     }
 }

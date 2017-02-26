@@ -17,6 +17,8 @@ namespace server.add
     {
         protected override void HandleRequest()
         {
+            /**
+             * Read fame.cs
             string status = "403";
             using (Database db = new Database())
             {
@@ -44,6 +46,7 @@ namespace server.add
             byte[] res = Encoding.UTF8.GetBytes(
                 status);
             Context.Response.OutputStream.Write(res, 0, res.Length);
+    **/
         }
     }
 }

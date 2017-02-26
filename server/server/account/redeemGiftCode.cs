@@ -30,7 +30,8 @@ namespace server.account
                     {
                         if (!rdr.HasRows)
                         {
-                            Context.Response.Redirect("../InvalidGiftCode.html");
+                            WriteStream(@"<h1>Invalid Giftcode</h1>
+<p>You entered an invalid giftcode</p>");
                             return;
                         }
 
@@ -40,16 +41,23 @@ namespace server.account
 
                     if (ParseContents(acc, contents))
                     {
-                        Context.Response.Redirect("../GiftCodeSuccess.html");
+                        WriteStream(@"<h1>Success</h1>
+<p>You will recieve the stuff you bought.</p>");
                         cmd = db.CreateQuery();
                         cmd.CommandText = "DELETE FROM giftCodes WHERE code=@code";
                         cmd.Parameters.AddWithValue("@code", code);
                         cmd.ExecuteNonQuery();
                     }
                     else
-                        Context.Response.Redirect("../InvalidGiftCode.html");
+                        WriteStream(@"<h1>Invalid Giftcode</h1>
+<p>You entered an invalid giftcode</p>");
                 }
             }
+        }
+
+        void WriteStream(string str)
+        {
+            Context.Response.OutputStream.Write(Encoding.ASCII.GetBytes(str), 0,str.Length);
         }
 
         private bool ParseContents(Account acc, string json)
