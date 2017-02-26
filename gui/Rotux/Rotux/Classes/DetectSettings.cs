@@ -118,6 +118,7 @@ namespace Rotux.Classes
             }
             WriteLine("Setting working path to current directory...");
             s.data["Working Folder"] = back;
+            s.data["Flash Player"] = back + "\\flashplayer.exe"; 
             Directory.SetCurrentDirectory(back);
 
             SetProgress(200 / proc);
