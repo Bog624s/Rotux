@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Rotux.Classes;
+using Rotux.Forms;
+using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -7,9 +9,9 @@ using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace Rotux
+namespace Rotux.Forms
 {
-    public partial class MainMenu : Form
+    partial class MainMenu : Form
     {
         ProcessHandler wServer, Server, MySQL;
         string wServerLoc, ServerLoc, MySQLStartLoc, MySQLStopLoc;
@@ -182,6 +184,11 @@ namespace Rotux
         {
             Process.Start(Assembly.GetExecutingAssembly().Location, "setup");
             Close();
+        }
+
+        private void ChangeRankBtn_Click(object sender, EventArgs e)
+        {
+            new ChangeParameter(s).Show();
         }
 
         private void wserverstartbtn_Click(object sender, EventArgs e)

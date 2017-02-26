@@ -3,9 +3,9 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 
-namespace Rotux
+namespace Rotux.Classes
 {
-    class ProcessHandler : IDisposable
+    internal class ProcessHandler : IDisposable
     {
         TextBox textbox;
         Process process;

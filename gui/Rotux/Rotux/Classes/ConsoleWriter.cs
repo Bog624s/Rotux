@@ -3,9 +3,9 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Rotux
+namespace Rotux.Classes
 {
-    public class ControlWriter : TextWriter
+    internal class ControlWriter : TextWriter
     {
         private Control control;
         private Control parent;

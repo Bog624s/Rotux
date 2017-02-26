@@ -1,4 +1,4 @@
-﻿namespace Rotux
+﻿namespace Rotux.Forms
 {
     partial class MainMenu
     {
@@ -47,15 +47,15 @@
             this.RealConsole = new System.Windows.Forms.TabPage();
             this.ConsoleOutput = new System.Windows.Forms.TextBox();
             this.Header = new System.Windows.Forms.PictureBox();
-            this.settingsbtn = new System.Windows.Forms.Button();
             this.loadsettingsbtn = new System.Windows.Forms.Button();
             this.playgamebtn = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.SimpleMenu = new System.Windows.Forms.TabPage();
             this.AdvancedMenu = new System.Windows.Forms.TabPage();
+            this.ChangeRankBtn = new System.Windows.Forms.Button();
+            this.RunSetup = new System.Windows.Forms.Button();
             this.dbcreatebtn = new System.Windows.Forms.Button();
             this.global = new System.Windows.Forms.ProgressBar();
-            this.RunSetup = new System.Windows.Forms.Button();
             this.ConsoleTabs.SuspendLayout();
             this.wServerConsole.SuspendLayout();
             this.serverConsole.SuspendLayout();
@@ -252,16 +252,6 @@
             this.Header.TabIndex = 10;
             this.Header.TabStop = false;
             // 
-            // settingsbtn
-            // 
-            this.settingsbtn.Location = new System.Drawing.Point(6, 93);
-            this.settingsbtn.Name = "settingsbtn";
-            this.settingsbtn.Size = new System.Drawing.Size(124, 23);
-            this.settingsbtn.TabIndex = 11;
-            this.settingsbtn.Text = "Edit Settings";
-            this.settingsbtn.UseVisualStyleBackColor = true;
-            this.settingsbtn.Click += new System.EventHandler(this.settingsbtn_Click);
-            // 
             // loadsettingsbtn
             // 
             this.loadsettingsbtn.Location = new System.Drawing.Point(164, 93);
@@ -306,13 +296,13 @@
             // 
             // AdvancedMenu
             // 
+            this.AdvancedMenu.Controls.Add(this.ChangeRankBtn);
             this.AdvancedMenu.Controls.Add(this.RunSetup);
             this.AdvancedMenu.Controls.Add(this.dbcreatebtn);
             this.AdvancedMenu.Controls.Add(this.wserverstartbtn);
             this.AdvancedMenu.Controls.Add(this.wserverstopbtn);
             this.AdvancedMenu.Controls.Add(this.loadsettingsbtn);
             this.AdvancedMenu.Controls.Add(this.serverstartbtn);
-            this.AdvancedMenu.Controls.Add(this.settingsbtn);
             this.AdvancedMenu.Controls.Add(this.serverstopbtn);
             this.AdvancedMenu.Controls.Add(this.mysqlstopbtn);
             this.AdvancedMenu.Controls.Add(this.mysqlstartbtn);
@@ -323,6 +313,26 @@
             this.AdvancedMenu.TabIndex = 1;
             this.AdvancedMenu.Text = "Advanced";
             this.AdvancedMenu.UseVisualStyleBackColor = true;
+            // 
+            // ChangeRankBtn
+            // 
+            this.ChangeRankBtn.Location = new System.Drawing.Point(164, 122);
+            this.ChangeRankBtn.Name = "ChangeRankBtn";
+            this.ChangeRankBtn.Size = new System.Drawing.Size(124, 23);
+            this.ChangeRankBtn.TabIndex = 15;
+            this.ChangeRankBtn.Text = "Modify Accounts";
+            this.ChangeRankBtn.UseVisualStyleBackColor = true;
+            this.ChangeRankBtn.Click += new System.EventHandler(this.ChangeRankBtn_Click);
+            // 
+            // RunSetup
+            // 
+            this.RunSetup.Location = new System.Drawing.Point(7, 93);
+            this.RunSetup.Name = "RunSetup";
+            this.RunSetup.Size = new System.Drawing.Size(124, 23);
+            this.RunSetup.TabIndex = 14;
+            this.RunSetup.Text = "Run Setup";
+            this.RunSetup.UseVisualStyleBackColor = true;
+            this.RunSetup.Click += new System.EventHandler(this.RunSetup_Click);
             // 
             // dbcreatebtn
             // 
@@ -340,16 +350,6 @@
             this.global.Name = "global";
             this.global.Size = new System.Drawing.Size(593, 13);
             this.global.TabIndex = 15;
-            // 
-            // RunSetup
-            // 
-            this.RunSetup.Location = new System.Drawing.Point(164, 122);
-            this.RunSetup.Name = "RunSetup";
-            this.RunSetup.Size = new System.Drawing.Size(124, 23);
-            this.RunSetup.TabIndex = 14;
-            this.RunSetup.Text = "Run Setup";
-            this.RunSetup.UseVisualStyleBackColor = true;
-            this.RunSetup.Click += new System.EventHandler(this.RunSetup_Click);
             // 
             // MainMenu
             // 
@@ -405,7 +405,6 @@
         private System.Windows.Forms.TextBox ServerOutput;
         private System.Windows.Forms.TextBox MySQLOutput;
         private System.Windows.Forms.PictureBox Header;
-        private System.Windows.Forms.Button settingsbtn;
         private System.Windows.Forms.Button loadsettingsbtn;
         private System.Windows.Forms.Button playgamebtn;
         private System.Windows.Forms.TabControl tabControl1;
@@ -416,6 +415,7 @@
         private System.Windows.Forms.TabPage RealConsole;
         private System.Windows.Forms.TextBox ConsoleOutput;
         private System.Windows.Forms.Button RunSetup;
+        private System.Windows.Forms.Button ChangeRankBtn;
     }
 }
 

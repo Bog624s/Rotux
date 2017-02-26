@@ -1,13 +1,14 @@
-﻿using System;
+﻿using Rotux.Classes;
+using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
 
-namespace Rotux
+namespace Rotux.Forms
 {
-    public partial class RotuxSetup : Form
+    internal partial class RotuxSetup : Form
     {
         Settings s;
         public RotuxSetup(Settings s)

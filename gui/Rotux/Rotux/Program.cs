@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Rotux.Classes;
+using Rotux.Forms;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
@@ -8,7 +10,7 @@ using System.Windows.Forms;
 
 namespace Rotux
 {
-    static class Program
+    internal static class Program
     {
         /// <summary>
         /// The main entry point for the application.
@@ -106,7 +108,7 @@ Client=client\client.swf");
                 }
                 else
                 {
-                    Application.Run(new MainMenu(new Settings(setting)));
+                    Application.Run(new Forms.MainMenu(new Settings(setting)));
                 }
 
             }

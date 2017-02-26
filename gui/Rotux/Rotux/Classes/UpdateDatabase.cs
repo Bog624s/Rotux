@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 
-namespace Rotux
+namespace Rotux.Classes
 {
     internal class UpdateDatabase
     {
@@ -9,7 +10,17 @@ namespace Rotux
         {
             RunMySql(s.data["MySQL"],s.data["MySQL Host"],int.Parse(s.data["MySQL Port"]),s.data["MySQL Username"],s.data["MySQL Password"],s.data["MySQL File"]);
         }
-        internal static int RunMySql(string exec, string server, int port, string user, string password, string filename)
+        internal static void RunQuery(Settings s, string[] query)
+        {
+            RunQuery(s.data["MySQL"], s.data["MySQL Host"], int.Parse(s.data["MySQL Port"]), s.data["MySQL Username"], s.data["MySQL Password"], query);
+        }
+        internal static void RunQuery(string exec, string server, int port, string user, string password, string[] query)
+        {
+            File.WriteAllLines("temp.sql",query);
+            RunMySql(exec,server,port,user,password,"temp.sql");
+            File.Delete("temp.sql");
+        }
+        internal static void RunMySql(string exec, string server, int port, string user, string password, string filename)
         {
             var process = Process.Start(
                 new ProcessStartInfo
@@ -36,8 +47,6 @@ namespace Rotux
             process.BeginOutputReadLine();
             process.StandardInput.Close();
             process.WaitForExit();
-
-            return process.ExitCode;
         }
 
     }

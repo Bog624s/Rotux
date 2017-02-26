@@ -1,11 +1,12 @@
 ﻿using System.Windows.Forms;
 
-namespace Rotux
+namespace Rotux.Forms
 {
-    public partial class ExceptionWindow : Form
+    partial class ExceptionWindow : Form
     {
         public ExceptionWindow(string e)
         {
+
             InitializeComponent();
             errortext.Text = e;
         }

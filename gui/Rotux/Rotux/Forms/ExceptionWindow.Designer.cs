@@ -1,4 +1,7 @@
-﻿namespace Rotux
+﻿using System;
+using System.Windows.Forms;
+
+namespace Rotux.Forms
 {
     partial class ExceptionWindow
     {

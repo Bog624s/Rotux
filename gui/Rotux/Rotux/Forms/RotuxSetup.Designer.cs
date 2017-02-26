@@ -1,4 +1,6 @@
-﻿namespace Rotux
+﻿using Rotux.Controls;
+
+namespace Rotux.Forms
 {
     partial class RotuxSetup
     {
