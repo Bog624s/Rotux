@@ -883,11 +883,10 @@ namespace Rotux.Forms
             this.label26.AutoSize = true;
             this.label26.Location = new System.Drawing.Point(17, 60);
             this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(281, 39);
+            this.label26.Size = new System.Drawing.Size(252, 26);
             this.label26.TabIndex = 51;
             this.label26.Text = "We are currently searching for the files needed\r\nfor your private server to run, " +
-    "this may take a while...\r\nClick the finish button when complete to save the sett" +
-    "ings.";
+    "this may take a while...";
             // 
             // label16
             // 
