@@ -2,7 +2,7 @@
 
 namespace wServer.realm
 {
-    class Inflation
+    public class Inflation
     {
         float max,min;
         public Inflation()

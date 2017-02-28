@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using wServer.networking;
 using wServer.networking.svrPackets;
-using wServer.realm.entities;
 using wServer.realm.entities.player;
 using wServer.realm.setpieces;
 using wServer.realm.worlds;
@@ -17,26 +16,6 @@ using wServer.realm.worlds;
 
 namespace wServer.realm.commands
 {
-
-    internal class InflationCommand : Command
-    {
-        public InflationCommand() : base("inf", 0)
-        {
-        }
-
-        protected override bool Process(Player player, RealmTime time, string[] args)
-        {
-            int r;
-            if (args.Length == 1 && int.TryParse(args[0], out r))
-            {
-                player.SendInfo("Calculated price: " + (int)(MerchantLists.inf.Get(player) * r));
-                return true;
-            }
-            player.SendInfo($"Your inflation: {(int)(MerchantLists.inf.Get(player) * 100)}% ({(int)(MerchantLists.inf.Get(player))}x)");
-            return true;
-        }
-    }
-
     internal class SendCommand : Command
     {
         public SendCommand() : base("send", 5) { }
@@ -369,7 +348,7 @@ namespace wServer.realm.commands
                 player.SendError("Unknown type!");
                 return false;
             }
-            if (!player.Manager.GameData.Items[objType].Secret || player.Client.Account.Rank >= 4)
+            if (!player.Manager.GameData.Items[objType].Secret || player.Client.Account.Rank >= 8)
             {
                 for (int i = 0; i < player.Inventory.Length; i++)
                     if (player.Inventory[i] == null)
@@ -1497,16 +1476,8 @@ namespace wServer.realm.commands
 
         protected override bool Process(Player player, RealmTime time, string[] args)
         {
-            Dictionary<string, Command> cmds = new Dictionary<string, Command>();
-            Type t = typeof(Command);
-            foreach (Type i in t.Assembly.GetTypes())
-                if (t.IsAssignableFrom(i) && i != t)
-                {
-                    Command instance = (Command)Activator.CreateInstance(i);
-                    cmds.Add(instance.CommandName, instance);
-                }
             StringBuilder sb = new StringBuilder("");
-            Command[] copy = cmds.Values.ToArray();
+            Command[] copy = CommandList.cmds.Values.ToArray();
             for (int i = 0; i < copy.Length; i++)
             {
                 if (copy[i].HasPermission(player))

@@ -2,6 +2,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 using wServer.realm.entities.player;
 
 #endregion
@@ -50,36 +53,83 @@ namespace wServer.realm.commands
             }
             catch (Exception ex)
             {
-				Console.WriteLine("Error when executing the command.", ex);
+				Console.WriteLine("Error when executing the command: {0}", ex);
                 player.SendError("Error when executing the command.");
                 return false;
             }
         }
     }
 
+    public static class CommandList
+    {
+        public static Dictionary<string, Command> cmds;
+        public static void LoadDLL(string DLL)
+        {
+            int count = 0;
+            try
+            {
+                Assembly asm = Assembly.LoadFrom(DLL);
+                Type t = typeof(Command);
+                foreach (Type i in asm.GetTypes())
+                    if (t.IsAssignableFrom(i) && i != t)
+                    {
+                        Command instance = (Command)Activator.CreateInstance(i);
+                        cmds.Add(instance.CommandName, instance);
+                        count++;
+                    }
+                Console.WriteLine($"{count} commands loaded from \"{Path.GetFileName(DLL)}\".");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Exception occured while loading commands from \"{Path.GetFileName(DLL)}\": {e}");
+            }
+
+        }
+
+    }
     public class CommandManager
     {
-
-        private readonly Dictionary<string, Command> cmds;
-
         private RealmManager manager;
+
+        private string[] blacklist =
+        {
+            "BouncyCastle.Crypto.dll".ToLower(),
+            "BouncyCastle.dll".ToLower(),
+            "db.dll".ToLower(),
+            "DungeonGen.dll".ToLower(),
+            "GoogleMaps.LocationServices.dll".ToLower(),
+            "Ionic.ZLib.dll".ToLower(),
+            "MailKit.dll".ToLower(),
+            "MimeKit.dll".ToLower(),
+            "MySql.Data.dll".ToLower(),
+            "Newtonsoft.Json.dll".ToLower(),
+            "RotMG.Common.dll".ToLower(),
+            "zlib.net.dll".ToLower()
+        };
 
         public CommandManager(RealmManager manager)
         {
             this.manager = manager;
-            cmds = new Dictionary<string, Command>(StringComparer.InvariantCultureIgnoreCase);
-            Type t = typeof (Command);
+            CommandList.cmds = new Dictionary<string, Command>(StringComparer.InvariantCultureIgnoreCase);
+            Type t = typeof(Command);
             foreach (Type i in t.Assembly.GetTypes())
                 if (t.IsAssignableFrom(i) && i != t)
                 {
-                    Command instance = (Command) Activator.CreateInstance(i);
-                    cmds.Add(instance.CommandName, instance);
+                    Command instance = (Command)Activator.CreateInstance(i);
+                    CommandList.cmds.Add(instance.CommandName, instance);
                 }
+            foreach (string s in Directory.GetFiles(Directory.GetCurrentDirectory(), "*.dll"))
+            {
+                if (!blacklist.Contains(Path.GetFileName(s).ToLower()))
+                {
+                    CommandList.LoadDLL(s);
+                }
+            }
         }
 
         public IDictionary<string, Command> Commands
         {
-            get { return cmds; }
+            get { return CommandList.cmds; }
         }
 
         public bool Execute(Player player, RealmTime time, string text)
@@ -89,7 +139,7 @@ namespace wServer.realm.commands
             string args = index == -1 ? "" : text.Substring(index + 1);
 
             Command command;
-            if (!cmds.TryGetValue(cmd, out command))
+            if (!CommandList.cmds.TryGetValue(cmd, out command))
             {
                 player.SendError("Unknown command!");
                 return false;

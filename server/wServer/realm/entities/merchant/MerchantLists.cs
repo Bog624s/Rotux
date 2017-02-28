@@ -9,7 +9,7 @@ using db.data;
 
 namespace wServer.realm.entities
 {
-    internal class MerchantLists
+    public class MerchantLists
     {
         public static Inflation inf = new Inflation();
         public static int[] AccessoryClothList;
