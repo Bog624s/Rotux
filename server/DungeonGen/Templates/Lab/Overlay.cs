@@ -18,11 +18,11 @@
 
 */
 
-using System;
 using DungeonGenerator.Dungeon;
 
-namespace DungeonGenerator.Templates.Lab {
-	internal class Overlay : MapRender {
+namespace DungeonGenerator.Templates.Lab
+{
+    internal class Overlay : MapRender {
 		public override void Rasterize() {
 			var wall = new DungeonTile {
 				TileType = LabTemplate.Space,

@@ -18,10 +18,10 @@
 
 */
 
-using System;
 
-namespace DungeonGenerator.Dungeon {
-	public struct TileType {
+namespace DungeonGenerator.Dungeon
+{
+    public struct TileType {
 		public readonly uint Id;
 		public readonly string Name;
 

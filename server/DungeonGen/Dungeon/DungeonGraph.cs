@@ -18,12 +18,12 @@
 
 */
 
-using System;
 using DungeonGenerator.Templates;
 using RotMG.Common.Rasterizer;
 
-namespace DungeonGenerator.Dungeon {
-	public class DungeonGraph {
+namespace DungeonGenerator.Dungeon
+{
+    public class DungeonGraph {
 		public DungeonTemplate Template { get; private set; }
 
 		public int Width { get; private set; }

@@ -18,14 +18,14 @@
 
 */
 
-using System;
 using System.Collections.Generic;
 using DungeonGenerator.Dungeon;
 using RotMG.Common;
 using RotMG.Common.Rasterizer;
 
-namespace DungeonGenerator {
-	public class RoomCollision {
+namespace DungeonGenerator
+{
+    public class RoomCollision {
 		const int GridScale = 3;
 		const int GridSize = 1 << GridScale;
 

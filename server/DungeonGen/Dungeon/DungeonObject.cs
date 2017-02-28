@@ -18,12 +18,12 @@
 
 */
 
-using System;
 using System.Collections.Generic;
 using RotMG.Common;
 
-namespace DungeonGenerator.Dungeon {
-	public struct ObjectType {
+namespace DungeonGenerator.Dungeon
+{
+    public struct ObjectType {
 		public readonly uint Id;
 		public readonly string Name;
 

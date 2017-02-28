@@ -1,18 +1,4 @@
-﻿using db;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Management;
-using System.IO;
-using System.Web;
-using Newtonsoft.Json;
-
-namespace server.admin
+﻿namespace server.admin
 {
     public class performCommand : RequestHandler
     {

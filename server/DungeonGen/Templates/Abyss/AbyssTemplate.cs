@@ -18,12 +18,12 @@
 
 */
 
-using System;
 using DungeonGenerator.Dungeon;
 using RotMG.Common;
 
-namespace DungeonGenerator.Templates.Abyss {
-	public class AbyssTemplate : DungeonTemplate {
+namespace DungeonGenerator.Templates.Abyss
+{
+    public class AbyssTemplate : DungeonTemplate {
 		internal static readonly TileType RedSmallChecks = new TileType(0x003c, "Red Small Checks");
 		internal static readonly TileType Lava = new TileType(0x0070, "Lava");
 		internal static readonly TileType Space = new TileType(0x00fe, "Space");
