@@ -10,7 +10,6 @@ using System.Xml.Serialization;
 using db;
 using MySql.Data.MySqlClient;
 using System.Net.Sockets;
-using GoogleMaps.LocationServices;
 using Newtonsoft.Json;
 using db.data;
 
@@ -20,40 +19,6 @@ namespace server.@char
 {
     internal class list : RequestHandler
     {
-        public MapPoint GetLatLong(string address)
-        {
-            if (address == "") return null;
-            try
-            {
-                var locationService = new GoogleLocationService();
-                return locationService.GetLatLongFromAddress(address);
-            }
-            catch (Exception) { }
-            return null;
-        }
-
-        public MapPoint GetLatLong(IPAddress ip)
-        {
-            if (ip == IPAddress.Any) return null;
-            try
-            {
-                string json;
-                WebRequest wb = WebRequest.Create("http://freegeoip.net/json/" + ip.ToString());
-                using (StreamReader rdr = new StreamReader(wb.GetResponse().GetResponseStream()))
-                    json = rdr.ReadToEnd();
-                
-                JsonSerializer serializer = new JsonSerializer();
-                var point = (locationPoint)serializer.Deserialize(new StringReader(json), typeof(locationPoint));
-                return new MapPoint
-                {
-                    Latitude = point.latitude,
-                    Longitude = point.longitude
-                };
-            }
-            catch (Exception) { }
-            return null;
-        }
-
         protected override void HandleRequest()
         {
             using (Database db = new Database())
@@ -81,12 +46,6 @@ namespace server.@char
                 {
                     chrs.Account = Database.CreateGuestAccount(Query["guid"] ?? "");
                     chrs.News = db.GetNews(Program.GameData, null);
-                }
-                MapPoint p = GetLatLong(Context.Request.RemoteEndPoint.Address);
-                if (p != null)
-                {
-                    chrs.Lat = p.Latitude.ToString().Replace(',', '.');
-                    chrs.Long = p.Longitude.ToString().Replace(',', '.');
                 }
                 chrs.ClassAvailabilityList = GetClassAvailability(chrs.Account);
                 chrs.TOSPopup = chrs.Account.NotAcceptedNewTos;
@@ -136,14 +95,12 @@ namespace server.@char
             int num = Program.Settings.GetValue<int>("svrNum");
             for (int i = 0; i < num; i++)
             {
-                MapPoint p = GetLatLong(Program.Settings.GetValue<string>("svr" + i + "Location", ""));
+                
                 double usage = GetUsage(Program.Settings.GetValue<string>("svr" + i + "Adr"));
 
                 ret.Add(new ServerItem()
                 {
                     Name = Program.Settings.GetValue<string>("svr" + i + "Name"),
-                    Lat = p != null ? p.Latitude : 0,
-                    Long = p != null ? p.Longitude : 0,
                     DNS = Program.Settings.GetValue<string>("svr" + i + "Adr", "127.0.0.1"),
                     Usage = usage,
                     AdminOnly = Program.Settings.GetValue<bool>("svr" + i + "Admin", "false")
@@ -282,7 +239,7 @@ namespace server.@char
             }
         }
 
-        private class locationPoint
+        private class location
         {
             public string ip;
             public string country_code;
