@@ -1,167 +1,195 @@
-﻿#region
-
-using System;
+﻿using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
-using wServer.realm.entities.player;
-using System.Collections.Generic;
-
-#endregion
+using System.Threading.Tasks;
 
 namespace wServer.realm
 {
     public class LogicTicker
     {
-        public static RealmTime CurrentTime;
+        /// <summary>
+        /// Returns the task scheduler who will perform tasks on the logic thread
+        /// Note: Use this task scheduler only for sync operations, not for blocking operations.
+        /// </summary>
+        public static TaskScheduler TaskScheduler { get; } = new LogicThreadTaskScheduler();
+
+        private readonly RealmManager manager;
         private readonly ConcurrentQueue<Action<RealmTime>>[] pendings;
 
-        public int MsPT;
-        public int TPS;
+        public readonly int TPS;
+        public readonly int MsPT;
+
+        private readonly ManualResetEvent mre;
+        private Task worldTask;
+        private RealmTime worldTime;
 
         public LogicTicker(RealmManager manager)
         {
-            Manager = manager;
+            this.manager = manager;
+            MsPT = 1000 / manager.TPS;
+            mre = new ManualResetEvent(false);
+            worldTime = new RealmTime();
+
             pendings = new ConcurrentQueue<Action<RealmTime>>[5];
             for (int i = 0; i < 5; i++)
                 pendings[i] = new ConcurrentQueue<Action<RealmTime>>();
-
-            TPS = manager.TPS;
-            MsPT = 1000/TPS;
-        }
-
-        public RealmManager Manager { get; private set; }
-
-        public void AddPendingAction(Action<RealmTime> callback)
-        {
-            AddPendingAction(callback, PendingPriority.Normal);
-        }
-
-        public void AddPendingAction(Action<RealmTime> callback, PendingPriority priority)
-        {
-            pendings[(int) priority].Enqueue(callback);
         }
 
         public void TickLoop()
         {
-			Console.WriteLine("Logic loop started.");
-            Stopwatch watch = new Stopwatch();
-            long dt = 0;
-            long count = 0;
+            Console.WriteLine("Logic loop started.");
 
-            watch.Start();
-            RealmTime t = new RealmTime();
+            var loopTime = 0;
+            var t = new RealmTime();
+            var watch = Stopwatch.StartNew();
             do
             {
-                if (Manager.Terminating) break;
+                t.tickTimes = watch.ElapsedMilliseconds;
+                t.thisTickCounts = loopTime / MsPT;
+                t.tickCount += t.thisTickCounts;
+                t.thisTickTimes = t.thisTickCounts * MsPT;
 
-                long times = dt/MsPT;
-                dt -= times*MsPT;
-                times++;
+                if (t.thisTickCounts > 3)
+                    Console.WriteLine("LAGGED! | ticks:" + t.thisTickCounts +
+                                      " ms: " + loopTime +
+                                      " tps: " + t.tickCount / (t.tickTimes / 1000.0));
 
-                long b = watch.ElapsedMilliseconds;
+                if (manager.Terminating)
+                    break;
 
-                count += times;
-                if (times > 3)
-					Console.WriteLine("LAGGED!| time:" + times + " dt:" + dt + " count:" + count + " time:" + b + " tps:" +
-                             count/(b/1000.0));
+                DoLogic(t);
 
-                t.tickTimes = b;
-                t.tickCount = count;
-                t.thisTickCounts = (int) times;
-                t.thisTickTimes = (int) (times*MsPT);
+                var logicTime = (int)(watch.ElapsedMilliseconds - t.tickTimes);
+                mre.WaitOne(Math.Max(0, MsPT - logicTime));
+                loopTime += (int)(watch.ElapsedMilliseconds - t.tickTimes) - t.thisTickTimes;
+            } while (true);
+            Console.WriteLine("Logic loop stopped.");
+        }
 
-                foreach (ConcurrentQueue<Action<RealmTime>> i in pendings)
-                {
-                    Action<RealmTime> callback;
-                    while (i.TryDequeue(out callback))
+        private void DoLogic(RealmTime t)
+        {
+            var clients = manager.Clients.Values;
+
+            foreach (var i in pendings)
+            {
+                Action<RealmTime> callback;
+                while (i.TryDequeue(out callback))
+                    try
                     {
-                        try
-                        {
-                            callback(t);
-                        }
-                        catch (Exception ex)
-                        {
-							Console.WriteLine(ex);
-                        }
+                        callback(t);
                     }
-                }
-                TickWorlds1(t);
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                    }
+            }
 
-                Player[] tradingPlayers = TradeManager.TradingPlayers.Where(_ => _.Owner == null).ToArray();
-                foreach (var player in tradingPlayers)
-                    TradeManager.TradingPlayers.Remove(player);
+            (TaskScheduler as LogicThreadTaskScheduler)?.RunPendingTasks();
 
-                KeyValuePair<Player, Player>[] requestPlayers = TradeManager.CurrentRequests.Where(_ => _.Key.Owner == null || _.Value.Owner == null).ToArray();
-                foreach (var players in requestPlayers)
-                    TradeManager.CurrentRequests.Remove(players);
+            TickWorlds1(t);
 
-                //string[] accIds = Manager.Clients.Select(_ => _.Value.Account.AccountId).ToArray();
+            foreach (var client in clients.Where(client => client.Player?.Owner != null))
+                client.Player.Flush();
+        }
 
-                //List<string> curGStructAccIds = new List<string>();
+        void TickWorlds1(RealmTime t)    //Continous simulation
+        {
+            worldTime.thisTickCounts += t.thisTickCounts;
 
-                //foreach(var i in GuildManager.CurrentManagers.Values)
-                //    curGStructAccIds.AddRange(i.GuildStructs.Select(_ => _.Key));
+            // tick enemies
+            try
+            {
+                foreach (var w in manager.Worlds.Values.Distinct())
+                    w.TickLogic(t);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
 
-                //foreach (var i in curGStructAccIds)
-                //    if (!accIds.Contains(i))
-                //        GuildManager.RemovePlayerWithId(i);
+            // tick world every 200 ms
+            if (worldTask != null && !worldTask.IsCompleted) return;
+            t.thisTickCounts = worldTime.thisTickCounts;
+            t.thisTickTimes = t.thisTickCounts * MsPT;
 
-                //var m = GuildManager.CurrentManagers;
-                //try
-                //{
-                //    foreach (var g in m)
-                //        if (g.Value.Count == 0)
-                //            GuildManager.CurrentManagers.Remove(g.Key);
-                //}
-                //catch (Exception ex)
-                //{
-                //    log.Error(ex);
-                //}
+            if (t.thisTickTimes < 200)
+                return;
+
+            worldTime.thisTickCounts = 0;
+            worldTask = Task.Factory.StartNew(() =>
+            {
+                foreach (var i in manager.Worlds.Values.Distinct())
+                    i.Tick(t);
+            }).ContinueWith(e =>
+               Console.WriteLine(e.Exception.InnerException),
+                TaskContinuationOptions.OnlyOnFaulted);
+        }
+
+        public void AddPendingAction(Action<RealmTime> callback,
+            PendingPriority priority = PendingPriority.Normal)
+        {
+            pendings[(int)priority].Enqueue(callback);
+        }
+
+        private class LogicThreadTaskScheduler : TaskScheduler
+        {
+            [ThreadStatic]
+            private static bool isExecuting;
+
+            private readonly BlockingCollection<Task> taskQueue;
+
+            public LogicThreadTaskScheduler()
+            {
+                taskQueue = new BlockingCollection<Task>();
+            }
+
+            private void internalRunOnCurrentThread()
+            {
+                isExecuting = true;
 
                 try
                 {
-                    GuildManager.Tick(CurrentTime);
+                    if (taskQueue.Count == 0) return;
+                    foreach (var task in taskQueue.GetConsumingEnumerable())
+                    {
+                        TryExecuteTask(task);
+                    }
                 }
-                catch (Exception ex)
+                catch (OperationCanceledException)
+                { }
+                finally
                 {
-					Console.WriteLine(ex);
+                    isExecuting = false;
                 }
+            }
 
-                Thread.Sleep(MsPT);
-                dt += Math.Max(0, watch.ElapsedMilliseconds - b - MsPT);
-            } while (true);
-			Console.WriteLine("Logic loop stopped.");
+            public void Complete() { taskQueue.CompleteAdding(); }
+            protected override IEnumerable<Task> GetScheduledTasks() { return null; }
+
+            protected override void QueueTask(Task task)
+            {
+                try
+                {
+                    taskQueue.Add(task);
+                }
+                catch (OperationCanceledException) { }
+            }
+
+            protected override bool TryExecuteTaskInline(Task task, bool taskWasPreviouslyQueued)
+            {
+                if (taskWasPreviouslyQueued) return false;
+                return isExecuting && TryExecuteTask(task);
+            }
+
+            public void RunPendingTasks()
+            {
+                if (Thread.CurrentThread.Name != "Logic")
+                    throw new InvalidOperationException("Method can only be called from the logic thread.");
+                internalRunOnCurrentThread();
+            }
         }
-
-        private void TickWorlds1(RealmTime t) //Continous simulation
-        {
-            CurrentTime = t;
-            foreach (World i in Manager.Worlds.Values.Distinct())
-                i.Tick(t);
-            //if (EnableMonitor)
-            //    svrMonitor.Mon.Tick(t);
-        }
-
-        //private void TickWorlds2(RealmTime t) //Discrete simulation
-        //{
-        //    long counter = t.thisTickTimes;
-        //    long c = t.tickCount - t.thisTickCounts;
-        //    long x = t.tickTimes - t.thisTickTimes;
-        //    while (counter >= MsPT)
-        //    {
-        //        c++;
-        //        x += MsPT;
-        //        TickWorlds1(new RealmTime
-        //        {
-        //            thisTickCounts = 1,
-        //            thisTickTimes = MsPT,
-        //            tickCount = c,
-        //            tickTimes = x
-        //        });
-        //        counter -= MsPT;
-        //    }
-        //}
     }
 }
