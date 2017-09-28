@@ -46,6 +46,11 @@
             this.MySQLOutput = new System.Windows.Forms.TextBox();
             this.RealConsole = new System.Windows.Forms.TabPage();
             this.ConsoleOutput = new System.Windows.Forms.TextBox();
+            this.reportProblem = new System.Windows.Forms.TabPage();
+            this.report_button = new System.Windows.Forms.Button();
+            this.contact_info = new System.Windows.Forms.TextBox();
+            this.desc_info = new System.Windows.Forms.Label();
+            this.did_you_find_any_error_text = new System.Windows.Forms.Label();
             this.Header = new System.Windows.Forms.PictureBox();
             this.loadsettingsbtn = new System.Windows.Forms.Button();
             this.playgamebtn = new System.Windows.Forms.Button();
@@ -61,6 +66,7 @@
             this.serverConsole.SuspendLayout();
             this.MySQLConsole.SuspendLayout();
             this.RealConsole.SuspendLayout();
+            this.reportProblem.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Header)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.SimpleMenu.SuspendLayout();
@@ -72,7 +78,7 @@
             this.wserverstartbtn.Location = new System.Drawing.Point(6, 6);
             this.wserverstartbtn.Name = "wserverstartbtn";
             this.wserverstartbtn.Size = new System.Drawing.Size(124, 23);
-            this.wserverstartbtn.TabIndex = 2;
+            this.wserverstartbtn.TabIndex = 7;
             this.wserverstartbtn.Text = "wServer Start";
             this.wserverstartbtn.UseVisualStyleBackColor = true;
             this.wserverstartbtn.Click += new System.EventHandler(this.wserverstartbtn_Click);
@@ -82,7 +88,7 @@
             this.serverstartbtn.Location = new System.Drawing.Point(6, 35);
             this.serverstartbtn.Name = "serverstartbtn";
             this.serverstartbtn.Size = new System.Drawing.Size(124, 23);
-            this.serverstartbtn.TabIndex = 3;
+            this.serverstartbtn.TabIndex = 9;
             this.serverstartbtn.Text = "Server Start";
             this.serverstartbtn.UseVisualStyleBackColor = true;
             this.serverstartbtn.Click += new System.EventHandler(this.serverstartbtn_Click);
@@ -92,7 +98,7 @@
             this.mysqlstartbtn.Location = new System.Drawing.Point(6, 64);
             this.mysqlstartbtn.Name = "mysqlstartbtn";
             this.mysqlstartbtn.Size = new System.Drawing.Size(124, 23);
-            this.mysqlstartbtn.TabIndex = 4;
+            this.mysqlstartbtn.TabIndex = 11;
             this.mysqlstartbtn.Text = "MySQL Start";
             this.mysqlstartbtn.UseVisualStyleBackColor = true;
             this.mysqlstartbtn.Click += new System.EventHandler(this.mysqlstartbtn_Click);
@@ -102,7 +108,7 @@
             this.wserverstopbtn.Location = new System.Drawing.Point(164, 6);
             this.wserverstopbtn.Name = "wserverstopbtn";
             this.wserverstopbtn.Size = new System.Drawing.Size(124, 23);
-            this.wserverstopbtn.TabIndex = 5;
+            this.wserverstopbtn.TabIndex = 8;
             this.wserverstopbtn.Text = "wServer Stop";
             this.wserverstopbtn.UseVisualStyleBackColor = true;
             this.wserverstopbtn.Click += new System.EventHandler(this.wserverstopbtn_Click);
@@ -112,7 +118,7 @@
             this.serverstopbtn.Location = new System.Drawing.Point(164, 35);
             this.serverstopbtn.Name = "serverstopbtn";
             this.serverstopbtn.Size = new System.Drawing.Size(124, 23);
-            this.serverstopbtn.TabIndex = 6;
+            this.serverstopbtn.TabIndex = 10;
             this.serverstopbtn.Text = "Server Stop";
             this.serverstopbtn.UseVisualStyleBackColor = true;
             this.serverstopbtn.Click += new System.EventHandler(this.serverstopbtn_Click);
@@ -122,7 +128,7 @@
             this.mysqlstopbtn.Location = new System.Drawing.Point(164, 64);
             this.mysqlstopbtn.Name = "mysqlstopbtn";
             this.mysqlstopbtn.Size = new System.Drawing.Size(124, 23);
-            this.mysqlstopbtn.TabIndex = 7;
+            this.mysqlstopbtn.TabIndex = 12;
             this.mysqlstopbtn.Text = "MySQL Stop";
             this.mysqlstopbtn.UseVisualStyleBackColor = true;
             this.mysqlstopbtn.Click += new System.EventHandler(this.mysqlstopbtn_Click);
@@ -154,11 +160,12 @@
             this.ConsoleTabs.Controls.Add(this.serverConsole);
             this.ConsoleTabs.Controls.Add(this.MySQLConsole);
             this.ConsoleTabs.Controls.Add(this.RealConsole);
+            this.ConsoleTabs.Controls.Add(this.reportProblem);
             this.ConsoleTabs.Location = new System.Drawing.Point(323, 160);
             this.ConsoleTabs.Name = "ConsoleTabs";
             this.ConsoleTabs.SelectedIndex = 0;
             this.ConsoleTabs.Size = new System.Drawing.Size(289, 227);
-            this.ConsoleTabs.TabIndex = 9;
+            this.ConsoleTabs.TabIndex = 5;
             // 
             // wServerConsole
             // 
@@ -179,7 +186,7 @@
             this.wServerOutput.ReadOnly = true;
             this.wServerOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.wServerOutput.Size = new System.Drawing.Size(269, 187);
-            this.wServerOutput.TabIndex = 0;
+            this.wServerOutput.TabIndex = 6;
             // 
             // serverConsole
             // 
@@ -200,7 +207,7 @@
             this.ServerOutput.ReadOnly = true;
             this.ServerOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.ServerOutput.Size = new System.Drawing.Size(269, 187);
-            this.ServerOutput.TabIndex = 1;
+            this.ServerOutput.TabIndex = 6;
             // 
             // MySQLConsole
             // 
@@ -220,7 +227,7 @@
             this.MySQLOutput.ReadOnly = true;
             this.MySQLOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.MySQLOutput.Size = new System.Drawing.Size(269, 187);
-            this.MySQLOutput.TabIndex = 1;
+            this.MySQLOutput.TabIndex = 6;
             // 
             // RealConsole
             // 
@@ -240,7 +247,61 @@
             this.ConsoleOutput.ReadOnly = true;
             this.ConsoleOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.ConsoleOutput.Size = new System.Drawing.Size(269, 187);
-            this.ConsoleOutput.TabIndex = 2;
+            this.ConsoleOutput.TabIndex = 6;
+            // 
+            // reportProblem
+            // 
+            this.reportProblem.BackColor = System.Drawing.Color.Black;
+            this.reportProblem.Controls.Add(this.report_button);
+            this.reportProblem.Controls.Add(this.contact_info);
+            this.reportProblem.Controls.Add(this.desc_info);
+            this.reportProblem.Controls.Add(this.did_you_find_any_error_text);
+            this.reportProblem.ForeColor = System.Drawing.Color.White;
+            this.reportProblem.Location = new System.Drawing.Point(4, 22);
+            this.reportProblem.Name = "reportProblem";
+            this.reportProblem.Padding = new System.Windows.Forms.Padding(3);
+            this.reportProblem.Size = new System.Drawing.Size(281, 201);
+            this.reportProblem.TabIndex = 4;
+            this.reportProblem.Text = "Report";
+            // 
+            // report_button
+            // 
+            this.report_button.ForeColor = System.Drawing.Color.Black;
+            this.report_button.Location = new System.Drawing.Point(200, 172);
+            this.report_button.Name = "report_button";
+            this.report_button.Size = new System.Drawing.Size(75, 23);
+            this.report_button.TabIndex = 3;
+            this.report_button.Text = "Report";
+            this.report_button.UseVisualStyleBackColor = true;
+            this.report_button.Click += new System.EventHandler(this.report_button_Click);
+            // 
+            // contact_info
+            // 
+            this.contact_info.Location = new System.Drawing.Point(6, 51);
+            this.contact_info.MaxLength = 2000;
+            this.contact_info.Multiline = true;
+            this.contact_info.Name = "contact_info";
+            this.contact_info.Size = new System.Drawing.Size(269, 115);
+            this.contact_info.TabIndex = 1;
+            // 
+            // desc_info
+            // 
+            this.desc_info.AutoSize = true;
+            this.desc_info.Location = new System.Drawing.Point(6, 35);
+            this.desc_info.Name = "desc_info";
+            this.desc_info.Size = new System.Drawing.Size(50, 13);
+            this.desc_info.TabIndex = 1;
+            this.desc_info.Text = "Message";
+            // 
+            // did_you_find_any_error_text
+            // 
+            this.did_you_find_any_error_text.AutoSize = true;
+            this.did_you_find_any_error_text.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.did_you_find_any_error_text.Location = new System.Drawing.Point(6, 6);
+            this.did_you_find_any_error_text.Name = "did_you_find_any_error_text";
+            this.did_you_find_any_error_text.Size = new System.Drawing.Size(190, 25);
+            this.did_you_find_any_error_text.TabIndex = 0;
+            this.did_you_find_any_error_text.Text = "Problem Reporting";
             // 
             // Header
             // 
@@ -257,7 +318,7 @@
             this.loadsettingsbtn.Location = new System.Drawing.Point(164, 93);
             this.loadsettingsbtn.Name = "loadsettingsbtn";
             this.loadsettingsbtn.Size = new System.Drawing.Size(124, 23);
-            this.loadsettingsbtn.TabIndex = 12;
+            this.loadsettingsbtn.TabIndex = 14;
             this.loadsettingsbtn.Text = "Load Settings";
             this.loadsettingsbtn.UseVisualStyleBackColor = true;
             this.loadsettingsbtn.Click += new System.EventHandler(this.loadsettingsbtn_Click);
@@ -267,7 +328,7 @@
             this.playgamebtn.Location = new System.Drawing.Point(25, 343);
             this.playgamebtn.Name = "playgamebtn";
             this.playgamebtn.Size = new System.Drawing.Size(282, 40);
-            this.playgamebtn.TabIndex = 13;
+            this.playgamebtn.TabIndex = 2;
             this.playgamebtn.Text = "Start Client";
             this.playgamebtn.UseVisualStyleBackColor = true;
             this.playgamebtn.Click += new System.EventHandler(this.playgamebtn_Click);
@@ -280,7 +341,7 @@
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(302, 181);
-            this.tabControl1.TabIndex = 14;
+            this.tabControl1.TabIndex = 4;
             // 
             // SimpleMenu
             // 
@@ -319,7 +380,7 @@
             this.ChangeRankBtn.Location = new System.Drawing.Point(164, 122);
             this.ChangeRankBtn.Name = "ChangeRankBtn";
             this.ChangeRankBtn.Size = new System.Drawing.Size(124, 23);
-            this.ChangeRankBtn.TabIndex = 15;
+            this.ChangeRankBtn.TabIndex = 16;
             this.ChangeRankBtn.Text = "Modify Accounts";
             this.ChangeRankBtn.UseVisualStyleBackColor = true;
             this.ChangeRankBtn.Click += new System.EventHandler(this.ChangeRankBtn_Click);
@@ -329,7 +390,7 @@
             this.RunSetup.Location = new System.Drawing.Point(7, 93);
             this.RunSetup.Name = "RunSetup";
             this.RunSetup.Size = new System.Drawing.Size(124, 23);
-            this.RunSetup.TabIndex = 14;
+            this.RunSetup.TabIndex = 13;
             this.RunSetup.Text = "Run Setup";
             this.RunSetup.UseVisualStyleBackColor = true;
             this.RunSetup.Click += new System.EventHandler(this.RunSetup_Click);
@@ -339,7 +400,7 @@
             this.dbcreatebtn.Location = new System.Drawing.Point(6, 122);
             this.dbcreatebtn.Name = "dbcreatebtn";
             this.dbcreatebtn.Size = new System.Drawing.Size(124, 23);
-            this.dbcreatebtn.TabIndex = 13;
+            this.dbcreatebtn.TabIndex = 15;
             this.dbcreatebtn.Text = "Create Database";
             this.dbcreatebtn.UseVisualStyleBackColor = true;
             this.dbcreatebtn.Click += new System.EventHandler(this.dbcreatebtn_Click);
@@ -379,6 +440,8 @@
             this.MySQLConsole.PerformLayout();
             this.RealConsole.ResumeLayout(false);
             this.RealConsole.PerformLayout();
+            this.reportProblem.ResumeLayout(false);
+            this.reportProblem.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Header)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.SimpleMenu.ResumeLayout(false);
@@ -416,6 +479,11 @@
         private System.Windows.Forms.TextBox ConsoleOutput;
         private System.Windows.Forms.Button RunSetup;
         private System.Windows.Forms.Button ChangeRankBtn;
+        private System.Windows.Forms.TabPage reportProblem;
+        private System.Windows.Forms.Button report_button;
+        private System.Windows.Forms.TextBox contact_info;
+        private System.Windows.Forms.Label desc_info;
+        private System.Windows.Forms.Label did_you_find_any_error_text;
     }
 }
 

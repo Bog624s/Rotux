@@ -18,6 +18,30 @@ namespace Rotux
         [STAThread]
         static void Main(string[] args)
         {
+            Mutex mutex = new Mutex(false, "ROTUX_GUI");
+            try
+            {
+                if (mutex.WaitOne(0, false))
+                {
+                    Run(args);
+                }
+                else
+                {
+                    MessageBox.Show("An instance of Rotux is already running.", "Rotux", MessageBoxButtons.OK);
+                }
+            }
+            finally
+            {
+                if (mutex != null)
+                {
+                    mutex.Close();
+                    mutex = null;
+                }
+            }
+        }
+
+        static void Run(string[] args)
+        {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             if (!(args.Length == 1 && args[0] == "debug"))
@@ -37,7 +61,7 @@ namespace Rotux
             }
             if (!File.Exists(setting))
             {
-                File.WriteAllText("doSetup","true");
+                File.WriteAllText("doSetup", "true");
                 setupmode = true;
                 File.WriteAllText(setting, @"# General Settings
 Title=Rotux Private Server
@@ -113,6 +137,7 @@ Client=client\client.swf");
 
             }
         }
+
         static void ExceptionHandler(object sender, UnhandledExceptionEventArgs args)
         {
             string msg = ((Exception)args.ExceptionObject).ToString();

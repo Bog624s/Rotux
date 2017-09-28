@@ -71,6 +71,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -86,6 +87,8 @@
   <ItemGroup>
     <Compile Include="Classes\ConsoleWriter.cs" />
     <Compile Include="Classes\DetectSettings.cs" />
+    <Compile Include="Classes\HasteBin.cs" />
+    <Compile Include="Classes\KillByPort.cs" />
     <Compile Include="Forms\ChangeParameter.cs">
       <SubType>Form</SubType>
     </Compile>
