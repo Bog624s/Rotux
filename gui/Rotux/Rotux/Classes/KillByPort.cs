@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -43,7 +44,6 @@ public class ProcManager
         var pStartInfo = new ProcessStartInfo();
         pStartInfo.FileName = "netstat.exe";
         pStartInfo.Arguments = "-a -n -o";
-        pStartInfo.WindowStyle = ProcessWindowStyle.Maximized;
         pStartInfo.CreateNoWindow = true;
         pStartInfo.UseShellExecute = false;
         pStartInfo.RedirectStandardInput = true;
@@ -60,7 +60,7 @@ public class ProcManager
 
         var output = soStream.ReadToEnd();
         if (process.ExitCode != 0)
-            throw new Exception("somethign broke");
+            throw new Exception("The exit code wasn't 0.");
 
         var result = new List<PRC>();
 
@@ -72,14 +72,21 @@ public class ProcManager
 
             var parts = line.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
-            var len = parts.Length;
-            if (len > 2)
-                result.Add(new PRC
-                {
-                    Protocol = parts[0],
-                    Port = int.Parse(parts[1].Split(':').Last()),
-                    PID = int.Parse(parts[len - 1])
-                });
+            try
+            {
+                var len = parts.Length;
+                if (len > 2)
+                    result.Add(new PRC
+                    {
+                        Protocol = parts[0],
+                        Port = int.Parse(parts[1].Split(':').Last()),
+                        PID = int.Parse(parts[len - 1])
+                    });
+            } catch
+            {
+                Console.WriteLine("Couldn't parse the output from netstat, is your PC running any other language than English?");
+            }
+
 
 
         }
