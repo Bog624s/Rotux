@@ -50,6 +50,7 @@ namespace Rotux
             bool excmode = false;
             bool setupmode = false;
             bool dbmode = false;
+            bool trbmode = false;
             if (args.Length > 0)
             {
                 if (args[0] == "exception")
@@ -58,6 +59,8 @@ namespace Rotux
                     setupmode = true;
                 if (args[0] == "database")
                     dbmode = true;
+                if (args[0] == "troubleshoot")
+                    trbmode = true;
             }
             if (!File.Exists(setting))
             {
@@ -129,6 +132,9 @@ Client=client\client.swf");
                         CreateNoWindow = true,
                         UseShellExecute = false
                     });
+                } else if (trbmode)
+                {
+                    Application.Run(new Troubleshoot());
                 }
                 else
                 {

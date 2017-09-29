@@ -47,9 +47,8 @@
             this.RealConsole = new System.Windows.Forms.TabPage();
             this.ConsoleOutput = new System.Windows.Forms.TextBox();
             this.reportProblem = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
             this.report_button = new System.Windows.Forms.Button();
-            this.contact_info = new System.Windows.Forms.TextBox();
-            this.desc_info = new System.Windows.Forms.Label();
             this.did_you_find_any_error_text = new System.Windows.Forms.Label();
             this.Header = new System.Windows.Forms.PictureBox();
             this.loadsettingsbtn = new System.Windows.Forms.Button();
@@ -252,9 +251,8 @@
             // reportProblem
             // 
             this.reportProblem.BackColor = System.Drawing.Color.Black;
+            this.reportProblem.Controls.Add(this.button1);
             this.reportProblem.Controls.Add(this.report_button);
-            this.reportProblem.Controls.Add(this.contact_info);
-            this.reportProblem.Controls.Add(this.desc_info);
             this.reportProblem.Controls.Add(this.did_you_find_any_error_text);
             this.reportProblem.ForeColor = System.Drawing.Color.White;
             this.reportProblem.Location = new System.Drawing.Point(4, 22);
@@ -262,36 +260,29 @@
             this.reportProblem.Padding = new System.Windows.Forms.Padding(3);
             this.reportProblem.Size = new System.Drawing.Size(281, 201);
             this.reportProblem.TabIndex = 4;
-            this.reportProblem.Text = "Report";
+            this.reportProblem.Text = "Problem";
+            // 
+            // button1
+            // 
+            this.button1.ForeColor = System.Drawing.Color.Black;
+            this.button1.Location = new System.Drawing.Point(27, 102);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(225, 51);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "Troubleshoot";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // report_button
             // 
             this.report_button.ForeColor = System.Drawing.Color.Black;
-            this.report_button.Location = new System.Drawing.Point(200, 172);
+            this.report_button.Location = new System.Drawing.Point(27, 45);
             this.report_button.Name = "report_button";
-            this.report_button.Size = new System.Drawing.Size(75, 23);
+            this.report_button.Size = new System.Drawing.Size(225, 51);
             this.report_button.TabIndex = 3;
             this.report_button.Text = "Report";
             this.report_button.UseVisualStyleBackColor = true;
             this.report_button.Click += new System.EventHandler(this.report_button_Click);
-            // 
-            // contact_info
-            // 
-            this.contact_info.Location = new System.Drawing.Point(6, 51);
-            this.contact_info.MaxLength = 2000;
-            this.contact_info.Multiline = true;
-            this.contact_info.Name = "contact_info";
-            this.contact_info.Size = new System.Drawing.Size(269, 115);
-            this.contact_info.TabIndex = 1;
-            // 
-            // desc_info
-            // 
-            this.desc_info.AutoSize = true;
-            this.desc_info.Location = new System.Drawing.Point(6, 35);
-            this.desc_info.Name = "desc_info";
-            this.desc_info.Size = new System.Drawing.Size(50, 13);
-            this.desc_info.TabIndex = 1;
-            this.desc_info.Text = "Message";
             // 
             // did_you_find_any_error_text
             // 
@@ -299,9 +290,9 @@
             this.did_you_find_any_error_text.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.did_you_find_any_error_text.Location = new System.Drawing.Point(6, 6);
             this.did_you_find_any_error_text.Name = "did_you_find_any_error_text";
-            this.did_you_find_any_error_text.Size = new System.Drawing.Size(190, 25);
+            this.did_you_find_any_error_text.Size = new System.Drawing.Size(246, 25);
             this.did_you_find_any_error_text.TabIndex = 0;
-            this.did_you_find_any_error_text.Text = "Problem Reporting";
+            this.did_you_find_any_error_text.Text = "Do you have a problem?";
             // 
             // Header
             // 
@@ -481,9 +472,8 @@
         private System.Windows.Forms.Button ChangeRankBtn;
         private System.Windows.Forms.TabPage reportProblem;
         private System.Windows.Forms.Button report_button;
-        private System.Windows.Forms.TextBox contact_info;
-        private System.Windows.Forms.Label desc_info;
         private System.Windows.Forms.Label did_you_find_any_error_text;
+        private System.Windows.Forms.Button button1;
     }
 }
 

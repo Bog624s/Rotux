@@ -15,10 +15,10 @@ namespace Rotux.Forms
 {
     partial class MainMenu : Form
     {
-        ProcManager portManager;
-        ProcessHandler wServer, Server, MySQL;
+        internal ProcManager portManager;
+        internal ProcessHandler wServer, Server, MySQL;
         string wServerLoc, ServerLoc, MySQLStartLoc, MySQLStopLoc;
-        Settings s;
+        internal Settings s;
         TextWriter console;
 
         public MainMenu(Settings s)
@@ -27,6 +27,7 @@ namespace Rotux.Forms
             portManager = new ProcManager();
             InitializeComponent();
             LoadSettings();
+            button1.Enabled = false;
             console = new ControlWriter(ConsoleOutput, this);
             Console.SetOut(console);
             if (!File.Exists(s.data["Flash Player"]))
@@ -110,7 +111,7 @@ namespace Rotux.Forms
         public void DatabaseCreate()
         {
             MySQL.Start();
-            Thread.Sleep(1);
+            Thread.Sleep(150);
             UpdateDatabase.LoadSQL(s);
         }
 
@@ -216,7 +217,7 @@ namespace Rotux.Forms
             {
                 Console.WriteLine("Report: {0}", Haste.HasteURL);
                 Clipboard.SetText(Haste.HasteURL);
-                MessageBox.Show("The report URL is copied to your clipboard:\n" + Haste.HasteURL,
+                MessageBox.Show("Report URL (copied): " + Haste.HasteURL,
                     "Report", MessageBoxButtons.OK);
             }
             else
@@ -229,10 +230,6 @@ namespace Rotux.Forms
         private string GetMessage()
         {
             List<string> Message = new List<string>();
-            Message.Add("\n\n");
-            Message.Add("--- MESSAGE ---");
-            Message.AddRange(contact_info.Lines);
-            Message.Add("--- END MESSAGE ---");
             Message.Add("\n\n");
             Message.Add("--- COMPUTER INFO ---");
             GenerateComputerInfo(Message);
@@ -300,6 +297,13 @@ namespace Rotux.Forms
             Message.Add("InstalledUICulture="+pc.InstalledUICulture.DisplayName);
             Message.Add("--- END SYSTEM ---");
             Message.Add("\n\n");
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            serverstopbtn_Click(sender, e);
+            Process.Start(Assembly.GetExecutingAssembly().Location, "troubleshoot");
+            Environment.Exit(0);
         }
 
         private void wserverstartbtn_Click(object sender, EventArgs e)
